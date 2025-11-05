@@ -10,7 +10,8 @@ namespace App_services
             Console.WriteLine("You are a sinner who commited a lot of sins from previous life.");
             Console.WriteLine("To redeem your sins, you have to accumulate 1000 karma points by using our services.");
             Console.WriteLine("Good luck on your journey to redemption!");
-            Console.WriteLine("hkrhjdkrfckhrfchrkfzdfdfa");
+            Console.WriteLine("adfadfasfafda");
+            Console.WriteLine("dafafda");
         }
 
         //display status
