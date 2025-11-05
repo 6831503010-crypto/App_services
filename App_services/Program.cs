@@ -12,6 +12,8 @@ namespace App_services
             Console.WriteLine("Good luck on your journey to redemption!");
             Console.WriteLine("adfadfasfafda");
             Console.WriteLine("dafafda");
+            Console.WriteLine("This is a test");
+            Console.WriteLine("This is aq test again");
         }
 
         //display status
