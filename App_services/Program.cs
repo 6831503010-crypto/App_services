@@ -145,12 +145,12 @@ namespace App_services
                     Console.Write("Enter your choice: ");
                     if (int.TryParse(Console.ReadLine(), out choice))//out passes a variable by reference so the method can store a value in it
                     {
-                        Console.WriteLine("Your choice:{0}", choice);
-                        validChoice = false;
+                        Console.WriteLine("Your choice:{0}", choice);  //if TryParse can convert to int do this (return true)
+                        validChoice = false;                           // if you Parse and failed = error 
                     }
                     else
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.Red;   // if can't do this (return false instead of error)
                         Console.WriteLine("Invalid input. Please enter a number.");
                         Console.ResetColor();
                     }
@@ -162,6 +162,7 @@ namespace App_services
                 {
                     case 1:
                         Console.WriteLine("Pray Selected");
+                        Prayer[] P = Pray.CreatePrayer(); // get the method into this file| fix tmr 
                         break;
                     case 2:
                         Console.WriteLine("Store Selected");
@@ -218,10 +219,10 @@ namespace App_services
                         break;
                     case 4:
                         Console.WriteLine("Exiting the application.");
-                        return;
+                        return;        // stops the whole program
                     default:
                         Console.WriteLine("Invalid choice. Please try again.");
-                        break;
+                        break;        // stops the loop vvv code runs after break
                 }
 
                 Console.Write("Do you want to continue? (y/n): ");
