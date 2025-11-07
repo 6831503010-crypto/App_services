@@ -131,6 +131,29 @@ Good luck on your journey to redemption!";
                 return false;
             }
         }
+
+        // Creating a set of prayers
+        public static Prayer[] CreatePrayer()
+        {
+            Prayer p1 = new Prayer();
+            p1.Line1 = "Namo Tatsa Pakawa To Araha To Summa Sumbhudda Sa";
+            p1.Line2 = "Namo Tatsa Pakawa To Araha To Summa Sumbhudda Sa";
+            p1.Line3 = "Namo Tatsa Pakawa To Araha To Summa Sumbhudda Sa";
+
+            Prayer p2 = new Prayer();
+            p2.Line1 = "Ei Mina Sakaray Na Bhudthung Apibhu Shayama";
+            p2.Line2 = "Ei Mina Sakaray Na Thummung Apibhu Shayama";
+            p2.Line3 = "Ei Mina Sakaray Na Sungkhung Apibhu Shayama";
+
+            Prayer p3 = new Prayer();
+            p3.Line1 = "Suppay Sutta Avera Hontuh ";
+            p3.Line2 = "Aupphaya Phutsha Honthu Aneka Hontuh";
+            p3.Line3 = "Sukkee Autthanung Pariha Runtuh";
+
+            Prayer[] allprayer = { p1, p2, p3 };
+            return allprayer;
+
+        }
         static void Main(string[] args)
         {
             //variables initialization and declaration
@@ -140,6 +163,7 @@ Good luck on your journey to redemption!";
             int karma = 1;
             string[] inventory = new string[] { };
             string name;
+
 
             zodiac_calculator zodiac_Calculator = new zodiac_calculator();
             //Display intro
@@ -227,6 +251,7 @@ Good luck on your journey to redemption!";
                 switch (choice)
                 {
                     case 1:
+                        Console.WriteLine("------------------------");
                         Console.WriteLine("Pray Selected");
                         //Prayer[] P = Pray.CreatePrayer(); // get the method into this file| fix tmr 
                         karma = 1500; //for testing purposes, set karma to 1500 to exit the loop

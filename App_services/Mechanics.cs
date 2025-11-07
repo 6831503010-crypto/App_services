@@ -26,7 +26,7 @@ namespace App_services
 
     public class Pray
     {
-        public Prayer[] CreatePrayer()
+        public static Prayer[] CreatePrayer()
         {
             Prayer p1 = new Prayer();
             p1.Line1 = "Namo Tatsa Pakawa To Araha To Summa Sumbhudda Sa";
@@ -47,7 +47,7 @@ namespace App_services
             return allprayer;
 
         }
-        public int PrayerInstruction()
+        public static int PrayerInstruction()
         {            
             Prayer[] allprayer = CreatePrayer();
             Random rand = new Random();
@@ -55,13 +55,19 @@ namespace App_services
             Prayer Randprayer = allprayer[Randindex];       // get a random prayer from index of [] of prayers
 
             Console.WriteLine("Type your prayer... ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"| {Randprayer.Line1} |");   // Shows Line 1 of this prayer
+            Console.ResetColor();
             string pray1 = Console.ReadLine();              // Get user's input
 
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"| {Randprayer.Line2} |");
+            Console.ResetColor();
             string pray2 = Console.ReadLine();
 
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"| {Randprayer.Line3} |");
+            Console.ResetColor();
             string pray3 = Console.ReadLine();
 
             // clean up user input
