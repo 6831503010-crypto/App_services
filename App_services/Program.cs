@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Threading;
 
 namespace App_services
 {
@@ -7,10 +8,26 @@ namespace App_services
         //display game story
         static void displayStory()
         {
-            Console.WriteLine("You are a sinner who commited a lot of sins from previous life.");
-            Console.WriteLine("To redeem your sins, you have to accumulate 1000 karma points by using our services.");
-            Console.WriteLine("Good luck on your journey to redemption!");
-            Console.WriteLine("Test from Nat");
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Red;
+
+            string story = @"You are a sinner who committed a lot of sins from your previous life.
+To redeem your sins, you have to accumulate 1000 karma points by using our services.
+Good luck on your journey to redemption!";
+
+
+            string[] words = story.Split(' ');
+
+            foreach (string word in words)
+            {
+                Console.Write(word + " ");
+                Thread.Sleep(150); // delay in milliseconds (100–200 feels natural)
+            }
+
+            Console.ResetColor();
+            Console.WriteLine("\n");
+            Thread.Sleep(4000);//stays visible for 5 seconds
+            Console.Clear();
         }
 
         //display status
@@ -75,7 +92,7 @@ namespace App_services
             //variables initialization and declaration
             string ans = "y";
             bool validChoice = true;
-            int choice = 0; //Have to declare choice here to use it in switch case
+            int choice = 0; //Have to declare and initiate choice here to use it in switch case
             int karma = 1;
             string[] inventory = new string[] { };
             string name;
@@ -85,7 +102,9 @@ namespace App_services
             //Ask for user's information
             Console.Write("Enter your name: ");
             name = Console.ReadLine();
-            
+
+
+
             bool validDate = false;
             bool validGender = false;
 
@@ -116,9 +135,7 @@ namespace App_services
 
             }
 
-
-
-
+            //The main game loop
             while (karma<1000)
             {
                 karma = -1000;
@@ -129,20 +146,22 @@ namespace App_services
                 displayStatus(name,karma, inventory);
 
                 //Display available services
-                zodiac_Calculator.displayBuddah();
 
-                Console.WriteLine("-------------------------");
-                Console.WriteLine("");
+                Console.WriteLine("------------------------");
+
+                zodiac_Calculator.displayMainLogo();
+
                 Console.WriteLine("1.Pray");
-                Console.WriteLine("2.Store");
-                Console.WriteLine("3.Zodiac Info");
-                Console.WriteLine("4.Exit");
-                Console.WriteLine("-------------------------");
+                Console.WriteLine("2.Go to store");
+                Console.WriteLine("3.Check zodiac sign");
+                Console.WriteLine("4.Offer");
+                Console.WriteLine("5.Exit");
+                Console.WriteLine("------------------------");
 
-                //ask for user's choice
+                //ask for user's choice and validate input loop
                 while (validChoice)
                 {
-                    Console.Write("Enter your choice: ");
+                    Console.Write("What do you want to do?: ");
                     if (int.TryParse(Console.ReadLine(), out choice))//out passes a variable by reference so the method can store a value in it
                     {
                         Console.WriteLine("Your choice:{0}", choice);
@@ -156,18 +175,17 @@ namespace App_services
                     }
                 }
 
-
                 //apply service based on user's choice
                 switch (choice)
                 {
                     case 1:
                         Console.WriteLine("Pray Selected");
+                        karma = 1500; //for testing purposes, set karma to 1500 to exit the loop
                         break;
                     case 2:
                         Console.WriteLine("Store Selected");
                         break;
                     case 3:
-                        
                         //Display welcome message
                         zodiac_Calculator.displayWelcomeMessage();
                         Console.WriteLine();
@@ -178,6 +196,36 @@ namespace App_services
                         string do_again = "y";
                         while (do_again.ToLower() == "y")
                         {
+                            //Ask user's input and validate if they ask to check another date
+                            if (input == null && gender == null)
+                            {
+                                validDate = false;
+                                validGender = false;
+
+                                while (!validDate || !validGender)
+                                {
+                                    if (!validDate)
+                                    {
+                                        Console.WriteLine();
+                                        input = zodiac_Calculator.askDate();
+                                        validDate = zodiac_Calculator.validateDate(input);
+                                    }
+                                    else if (!validGender)
+                                    {
+                                        Console.WriteLine();
+                                        gender = zodiac_Calculator.askGender();
+                                        validGender = zodiac_Calculator.validateGender(gender);
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine();
+                                        input = zodiac_Calculator.askDate();
+                                        gender = zodiac_Calculator.askGender();
+                                        validDate = zodiac_Calculator.validateDate(input);
+                                        validGender = zodiac_Calculator.validateGender(gender);
+                                    }
+                                }
+                            }
                             //Read input values
                             setInput(zodiac_Calculator, input, gender);
 
@@ -191,7 +239,6 @@ namespace App_services
                             zodiac_Calculator.displayCareer(zodiac_Calculator.getZodiacSign());
                             Console.ResetColor();
 
-
                             //Ask the user if they want to do it again and validate input
                             Console.WriteLine();
                             bool validDoAgain = false;
@@ -204,32 +251,50 @@ namespace App_services
                                     validDoAgain = true;
                                     if (do_again == "y")
                                     {
+                                        input = null;
+                                        gender = null;
                                         zodiac_Calculator.displayReminder(zodiac_Calculator.getZodiacSign());
                                     }
                                 }
-                                ;
                             }
                             Console.ResetColor();
-
                         }
 
                         zodiac_Calculator.displayReminder("");
                         zodiac_Calculator.displayGoodbyeMessage();
                         break;
                     case 4:
-                        Console.WriteLine("Exiting the application.");
+                        Console.WriteLine("Offer selected.");
+                        break;
+                    case 5:
+                        Console.WriteLine("Leaving the redemption journey.");
+                        //Display final status and ending when user chooses to exit
+                        if (karma < 1000)
+                        {
+                            zodiac_Calculator.displayHell();
+                        }
+                        else
+                        {
+                            zodiac_Calculator.displayHeaven();
+                        }
                         return;
                     default:
                         Console.WriteLine("Invalid choice. Please try again.");
                         break;
                 }
 
-                Console.Write("Do you want to continue? (y/n): ");
-                ans = Console.ReadLine();
-
-                //reset validChoice and choice for next iteration
                 validChoice = true;
                 choice = 0;
+            }
+
+            //Display final status and ending
+            if (karma < 1000)
+            {
+                zodiac_Calculator.displayHell();
+            }
+            else
+            {
+                zodiac_Calculator.displayHeaven();
             }
         }
     }

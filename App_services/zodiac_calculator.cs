@@ -861,7 +861,7 @@ public class zodiac_calculator
 
     public void displayBuddah()
     {
-        Console.WriteLine(@"
+        string buddahArt = @"
                            _
                         _ooOoo_
                        o8888888o
@@ -879,8 +879,113 @@ public class zodiac_calculator
            ."""" '<  `.___\_<|>_/___.' _> \"""".
           | | :  `- \`. ;`. _/; .'/ /  .' ; |
           \  \ `-.   \_\_`. _.'_/_/  -' _.' /
-===========`-.`___`-.__\ \___  /__.-'_.'_.-'================
-                        `=--=-'                    ");
+===========`-.`___`-.__\ \___  /__.-'_.'_.-'================";
+        Console.ForegroundColor = ConsoleColor.DarkYellow;
+        foreach (var line in buddahArt.Split('\n'))
+        {
+            Console.WriteLine(line);
+            Thread.Sleep(100);// tweak speed if you want
+        }
+        Console.ResetColor();
+    }
+    public void displayHell()
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+
+        // 1) show the art first (no outro text inside)
+        string hellArt = @"
+          (_)L|J
+     )      ("" ) |     (
+     ,(. A `/ \-|   (,`)
+    )' (' \/\ / |  ) (.
+   (' ),).  _W_ | (,)' )
+  ^^^^^^^^^^^^^^^^^^^^^^^
+
+ ,    ,    /\   /\
+/( /\ )\  _\ \_/ /_
+|\_||_/| < \_   _/ >
+\______/  \|0   0|/
+  _\/_   _(_  ^  _)_
+ ( () ) /`\|V""""""V|/`\
+   {}   \  \_____/  /
+   ()   /\   )=(   /\
+   {}  /  \_/\=/\_/  \";
+
+        foreach (var line in hellArt.Split('\n'))
+        {
+            Console.WriteLine(line);
+            Thread.Sleep(150); // tweak speed if you want
+        }
+
+        Console.WriteLine(); // spacer
+
+        // 2) typewriter outro
+        Typewrite("Time to pay for your sins.", 100); // ms per char
+
+        Console.ResetColor();
+    }
+
+    static void Typewrite(string text, int delayMs)
+    {
+        foreach (char c in text)
+        {
+            Console.Write(c);
+            Thread.Sleep(delayMs);
+        }
+        Console.WriteLine();
+    }
+
+    public void displayHeaven()
+    {
+        Console.ForegroundColor=ConsoleColor.DarkYellow;
+        string heavenArt = @"
+             .---.
+            / ,-- \
+    .--.   ( (^_^) )   .--.
+  ,'    \  (.-`-'(_)  /    `.
+ /       `-/ \ `.  \-'       \
+: (_,' .  / (.\_ "") \  . `._) :
+|   `-'(_,\ \     / /._)`-'   |
+|       .  `.\,O,'.'  .   :   |
+|   . : !   /\_  /\   ! . !   |
+| ! |-'-|  : """"T"""" :  |-'-| | |
+| |-'   `-'|   H   |`-'   `-| |
+`-'        |   H .:|        `-'
+           | . H !||
+           | : H :!|
+           | ! H !||
+           | | H |||
+           | | H |||  
+           /_,'V.L|.\ ";
+        foreach (var line in heavenArt.Split('\n'))
+        {
+            Console.WriteLine(line);
+            Thread.Sleep(150); // tweak speed if you want
+        }
+
+        Console.WriteLine(); // spacer
+        Typewrite("Welcome to Heaven, my child", 100); // ms per char
+        Console.ResetColor();
+    }
+
+    public void displayMainLogo()
+    {
+        string logo = @"
+______         _                      _   _             
+| ___ \       | |                    | | (_)            
+| |_/ /___  __| | ___ _ __ ___  _ __ | |_ _  ___  _ __  
+|    // _ \/ _` |/ _ \ '_ ` _ \| '_ \| __| |/ _ \| '_ \ 
+| |\ \  __/ (_| |  __/ | | | | | |_) | |_| | (_) | | | |
+\_| \_\___|\__,_|\___|_| |_| |_| .__/ \__|_|\___/|_| |_|
+                               | |                      
+                               |_|                      ";
+        Console.ForegroundColor = ConsoleColor.DarkYellow;
+        foreach (var line in logo.Split('\n'))
+        {
+            Console.WriteLine(line);
+            Thread.Sleep(100); // tweak speed if you want
+        }
+        Console.ResetColor();
     }
 
     //Ask Inputs
