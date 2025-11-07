@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -180,278 +181,428 @@ public class zodiac_calculator
     }
 
     //Display methods
-
-    public void displayZodiacCompatibility(string zodiac)
+    static void Typewrite(string text, int delayMs)
     {
+        foreach (char c in text)
+        {
+            Console.Write(c);
+            Thread.Sleep(delayMs);
+        }
         Console.WriteLine();
-        Console.WriteLine(@"
- __                         __ __   ___        
-|  |.-----.--.--.-----.    |  |__|.'  _|.-----.
-|  ||  _  |  |  |  -__|    |  |  ||   _||  -__|
-|__||_____|\___/|_____|    |__|__||__|  |_____|
-                                               ");
+    }
+    public void displayCareer(string zodiac)
+    {
         determine_zodiac_color(zodiac);
+        string career;
+        string careerLogo = @"
+ ______                              
+|      |.---.-.----.-----.-----.----.
+|   ---||  _  |   _|  -__|  -__|   _|
+|______||___._|__| |_____|_____|__|  ";
+      
+        foreach (var line in careerLogo.Split('\n'))
+        {
+            Console.WriteLine(line);
+            Thread.Sleep(100);
+        }
+        Console.WriteLine();
+
         switch (zodiac)
         {
             case "Aries":
-                Console.WriteLine("Best Matches: Leo, Sagittarius, Gemini");
-                Console.WriteLine("You vibe with people who match your passion, adventure, and confidence.");
+                career = @"Aries — The Leader
+Best Careers: Entrepreneur, Athlete, Military Officer, Emergency Responder
+Aries thrives where action, competition, and leadership are key.";
                 break;
 
             case "Taurus":
-                Console.WriteLine("Best Matches: Virgo, Capricorn, Cancer");
-                Console.WriteLine("You connect deeply with loyal, grounded partners who love stability and comfort.");
+                career = @"Taurus — The Builder
+Best Careers: Banker, Chef, Interior Designer, Gardener, Musician
+They excel in stable, creative, and hands-on environments that offer comfort and reward.";
                 break;
 
             case "Gemini":
-                Console.WriteLine("Best Matches: Libra, Aquarius, Aries");
-                Console.WriteLine("You need someone who can match your energy, wit, and curiosity for life.");
+                career = @"Gemini — The Communicator
+Best Careers: Journalist, Marketer, Teacher, Public Relations, Software Developer
+Geminis succeed where they can share ideas, learn fast, and adapt to change.";
                 break;
 
             case "Cancer":
-                Console.WriteLine("Best Matches: Scorpio, Pisces, Taurus");
-                Console.WriteLine("You blend best with partners who value emotion, loyalty, and deep connection.");
+                career = @"Cancer — The Nurturer
+Best Careers: Counselor, Nurse, Social Worker, Chef, Real Estate Agent
+Cancers excel in emotionally supportive, people-focused roles that bring security to others.";
                 break;
 
             case "Leo":
-                Console.WriteLine("Best Matches: Aries, Sagittarius, Libra");
-                Console.WriteLine("You shine brightest with someone who appreciates your confidence and heart.");
+                career = @"Leo — The Performer
+Best Careers: Actor, Manager, Designer, Politician, Influencer
+Leos shine in careers where they can inspire, lead, and be recognized for their creativity.";
                 break;
 
             case "Virgo":
-                Console.WriteLine("Best Matches: Taurus, Capricorn, Scorpio");
-                Console.WriteLine("You’re most compatible with those who respect your intelligence and calm energy.");
+                career = @"Virgo — The Analyst
+Best Careers: Editor, Doctor, Data Analyst, Researcher, Engineer
+Virgos do best in precise, detail-driven environments that value order and efficiency.";
                 break;
 
             case "Libra":
-                Console.WriteLine("Best Matches: Gemini, Aquarius, Leo");
-                Console.WriteLine("You vibe with charming, open-minded partners who bring balance and beauty to life.");
+                career = @"Libra — The Diplomat
+Best Careers: Lawyer, Mediator, Designer, HR Specialist, Event Planner
+Libras succeed where balance, harmony, and teamwork are essential.";
                 break;
 
             case "Scorpio":
-                Console.WriteLine("Best Matches: Cancer, Pisces, Virgo");
-                Console.WriteLine("You need someone who can handle your passion, intensity, and loyalty.");
+                career = @"Scorpio — The Strategist
+Best Careers: Psychologist, Detective, Scientist, Financial Analyst, Surgeon
+Scorpios thrive in deep, investigative, and high-stakes environments.";
                 break;
 
             case "Sagittarius":
-                Console.WriteLine("Best Matches: Aries, Leo, Aquarius");
-                Console.WriteLine("You click with free spirits who love travel, laughter, and chasing dreams.");
+                career = @"Sagittarius — The Explorer
+Best Careers: Travel Blogger, Professor, Pilot, Writer, Entrepreneur
+Sagittarians love freedom, exploration, and big ideas — they need space to roam and grow.";
                 break;
 
             case "Capricorn":
-                Console.WriteLine("Best Matches: Taurus, Virgo, Scorpio");
-                Console.WriteLine("You pair well with ambitious, steady people who share your drive and loyalty.");
+                career = @"Capricorn — The Achiever
+Best Careers: CEO, Engineer, Architect, Accountant, Project Manager
+Capricorns excel in structured careers that demand responsibility, patience, and strategy.";
                 break;
 
             case "Aquarius":
-                Console.WriteLine("Best Matches: Gemini, Libra, Sagittarius");
-                Console.WriteLine("You thrive with partners who embrace your originality and give you space to dream.");
+                career = @"Aquarius — The Visionary
+Best Careers: Scientist, Inventor, Tech Developer, Activist, Researcher
+Aquarians thrive where innovation, originality, and community impact matter most.";
                 break;
 
             case "Pisces":
-                Console.WriteLine("Best Matches: Cancer, Scorpio, Capricorn");
-                Console.WriteLine("You find peace with partners who are understanding, deep, and emotionally present.");
+                career = @"Pisces — The Dreamer
+Best Careers: Artist, Therapist, Musician, Writer, Photographer
+Pisces shine in creative or healing roles that let them express empathy and imagination.";
                 break;
 
             default:
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Unknown zodiac sign. Please check your input.");
+                career = "Unknown zodiac sign. Please check your input.";
+                Console.ResetColor();
                 break;
         }
+        Typewrite(career, 10);
+    }
+    public void displayZodiacCompatibility(string zodiac)
+    {
+        Console.WriteLine();
+        string match;
+        string loveLogo = @"
+ __                         __ __   ___        
+|  |.-----.--.--.-----.    |  |__|.'  _|.-----.
+|  ||  _  |  |  |  -__|    |  |  ||   _||  -__|
+|__||_____|\___/|_____|    |__|__||__|  |_____|";
+
+        foreach (var line in loveLogo.Split('\n'))
+        {
+            Console.WriteLine(line);
+            Thread.Sleep(100);
+        }
+        Console.WriteLine();
+
+        determine_zodiac_color(zodiac);
+        switch (zodiac)
+        {
+            case "Aries":
+                match = @"Best Matches: Leo, Sagittarius, Gemini
+You vibe with people who match your passion, adventure, and confidence.";
+                break;
+
+            case "Taurus":
+                match = @"Best Matches: Virgo, Capricorn, Cancer
+You connect deeply with loyal, grounded partners who love stability and comfort.";
+                break;
+
+            case "Gemini":
+                match = @"Best Matches: Libra, Aquarius, Aries
+You need someone who can match your energy, wit, and curiosity for life.";
+                break;
+
+            case "Cancer":
+                match = @"Best Matches: Scorpio, Pisces, Taurus
+You blend best with partners who value emotion, loyalty, and deep connection.";
+                break;
+
+            case "Leo":
+                match = @"Best Matches: Aries, Sagittarius, Libra
+You shine brightest with someone who appreciates your confidence and heart.";
+                break;
+
+            case "Virgo":
+                match = @"Best Matches: Taurus, Capricorn, Scorpio
+You’re most compatible with those who respect your intelligence and calm energy.";
+                break;
+
+            case "Libra":
+                match = @"Best Matches: Gemini, Aquarius, Leo
+You vibe with charming, open-minded partners who bring balance and beauty to life.";
+                break;
+
+            case "Scorpio":
+                match = @"Best Matches: Cancer, Pisces, Virgo
+You need someone who can handle your passion, intensity, and loyalty.";
+                break;
+
+            case "Sagittarius":
+                match = @"Best Matches: Aries, Leo, Aquarius
+You click with free spirits who love travel, laughter, and chasing dreams.";
+                break;
+
+            case "Capricorn":
+                match = @"Best Matches: Taurus, Virgo, Scorpio
+You pair well with ambitious, steady people who share your drive and loyalty.";
+                break;
+
+            case "Aquarius":
+                match = @"Best Matches: Gemini, Libra, Sagittarius
+You thrive with partners who embrace your originality and give you space to dream.";
+                break;
+
+            case "Pisces":
+                match = @"Best Matches: Cancer, Scorpio, Capricorn
+You find peace with partners who are understanding, deep, and emotionally present.";
+                break;
+
+            default:
+                Console.ForegroundColor = ConsoleColor.Red;
+                match = "Unknown zodiac sign. Please check your input.";
+                Console.ResetColor();
+                break;
+        }
+        Typewrite(match, 10);
     }
     public void displayTraits(string zodiac, string gender)
     {
         determine_zodiac_color(zodiac);
         Console.WriteLine();
-        Console.WriteLine(@"
+        string traitsLogo = @"
  _______              __ __         
 |_     _|.----.---.-.|__|  |_.-----.
   |   |  |   _|  _  ||  |   _|__ --|
-  |___|  |__| |___._||__|____|_____|
-                                    ");
+  |___|  |__| |___._||__|____|_____|";
+ 
+        foreach (var line in traitsLogo.Split('\n'))
+        {
+            Console.WriteLine(line);
+            Thread.Sleep(100);
+        }
+        Console.WriteLine();
         string Gender = gender.ToUpper();
+        string traits;
         if (Gender == "M")
         {
             switch (zodiac)
             {
                 case "Aquarius":
-
-                    Console.WriteLine("Independent, creative, and forward-thinking.\r\nHe’s a bit unpredictable but always intriguing.\r\nValues freedom over routine.\r\nLoves ideas more than small talk.");
+                    traits = @"Independent, creative, and forward-thinking.
+He’s a bit unpredictable but always intriguing.
+Values freedom over routine.
+Loves ideas more than small talk.";
                     break;
 
                 case "Pisces":
-
-                    Console.WriteLine("Dreamy, emotional, and romantic.\r\nHe feels deeply and connects easily with others.\r\nA creative soul who gets lost in thought.\r\nGentle but needs grounding.");
+                    traits = @"Dreamy, emotional, and romantic.
+He feels deeply and connects easily with others.
+A creative soul who gets lost in thought.
+Gentle but needs grounding.";
                     break;
 
                 case "Aries":
-
-                    Console.WriteLine("Bold, confident, and restless — he dives into challenges head-first.\r\nHe thrives on competition and hates waiting around.\r\nSometimes impulsive, but always inspiring.\r\nHis energy lights up every room.");
-
+                    traits = @"Bold, confident, and restless — he dives into challenges head-first.
+He thrives on competition and hates waiting around.
+Sometimes impulsive, but always inspiring.
+His energy lights up every room.";
                     break;
 
                 case "Taurus":
-
-                    Console.WriteLine("Calm, loyal, and dependable.\r\nHe enjoys good food, music, and peaceful routines.\r\nSlow to anger but stubborn once decided.\r\nHe values comfort, love, and trust.");
-
+                    traits = @"Calm, loyal, and dependable.
+He enjoys good food, music, and peaceful routines.
+Slow to anger but stubborn once decided.
+He values comfort, love, and trust.";
                     break;
 
                 case "Gemini":
-
-                    Console.WriteLine("Charming, witty, and talkative.\r\nHe loves new ideas and can adapt to any crowd.\r\nEasily bored, always searching for stimulation.\r\nHis mind never stops spinning.");
-
+                    traits = @"Charming, witty, and talkative.
+He loves new ideas and can adapt to any crowd.
+Easily bored, always searching for stimulation.
+His mind never stops spinning.";
                     break;
 
                 case "Cancer":
-
-                    Console.WriteLine("Sensitive, loyal, and protective.\r\nHe may act tough, but he feels everything deeply.\r\nFamily means everything to him.\r\nOnce you earn his trust, he’s yours for good.");
-
+                    traits = @"Sensitive, loyal, and protective.
+He may act tough, but he feels everything deeply.
+Family means everything to him.
+Once you earn his trust, he’s yours for good.";
                     break;
 
                 case "Leo":
-
-                    Console.WriteLine("Charismatic and proud, he was born to lead.\r\nHe loves attention but also protects those he loves.\r\nConfident yet generous, he inspires loyalty.\r\nA true king energy.");
-
+                    traits = @"Charismatic and proud, he was born to lead.
+He loves attention but also protects those he loves.
+Confident yet generous, he inspires loyalty.
+A true king energy.";
                     break;
 
                 case "Virgo":
-
-                    Console.WriteLine("Smart, detail-driven, and calm under pressure.\r\nHe values logic and order.\r\nQuiet but deeply observant, always helping behind the scenes.\r\nHis love shows in action, not words.");
-
+                    traits = @"Smart, detail-driven, and calm under pressure.
+He values logic and order.
+Quiet but deeply observant, always helping behind the scenes.
+His love shows in action, not words.";
                     break;
 
                 case "Libra":
-
-                    Console.WriteLine("Smooth, diplomatic, and charming.\r\nHe loves peace, fairness, and balance.\r\nCan be indecisive but always means well.\r\nHe makes others feel seen and heard.");
-
+                    traits = @"Smooth, diplomatic, and charming.
+He loves peace, fairness, and balance.
+Can be indecisive but always means well.
+He makes others feel seen and heard.";
                     break;
 
                 case "Scorpio":
-
-                    Console.WriteLine("Intense, loyal, and mysterious.\r\nHe feels deeply but hides it well.\r\nProtective and passionate, he loves all-in.\r\nWhen betrayed, he never forgets.");
-
+                    traits = @"Intense, loyal, and mysterious.
+He feels deeply but hides it well.
+Protective and passionate, he loves all-in.
+When betrayed, he never forgets.";
                     break;
 
                 case "Sagittarius":
-
-                    Console.WriteLine("Adventurous, honest, and free-spirited.\r\nHe lives for travel, laughter, and big dreams.\r\nCan’t stand being tied down.\r\nHis optimism makes life fun.");
-
+                    traits = @"Adventurous, honest, and free-spirited.
+He lives for travel, laughter, and big dreams.
+Can’t stand being tied down.
+His optimism makes life fun.";
                     break;
 
                 case "Capricorn":
-
-                    Console.WriteLine("Ambitious, responsible, and patient.\r\nHe sets big goals and achieves them step by step.\r\nSerious but secretly sentimental.\r\nYou can rely on him no matter what.");
-
+                    traits = @"Ambitious, responsible, and patient.
+He sets big goals and achieves them step by step.
+Serious but secretly sentimental.
+You can rely on him no matter what.";
                     break;
 
                 default:
-                    Console.WriteLine("Unknown zodiac — no traits available.");
+                    traits = "Unknown zodiac — no traits available.";
                     break;
             }
-
+            Typewrite(traits, 10);
         }
         else if (Gender == "F")
         {
             switch (zodiac)
             {
                 case "Aquarius":
-
-                    Console.WriteLine("Unique and original, she doesn’t follow the crowd.\r\nShe’s kind yet detached — always in her own world.\r\nLoves deeply but on her own terms.\r\nShe’s electric energy in human form.");
-
+                    traits = @"Unique and original, she doesn’t follow the crowd.
+She’s kind yet detached — always in her own world.
+Loves deeply but on her own terms.
+She’s electric energy in human form.";
                     break;
 
                 case "Pisces":
-
-                    Console.WriteLine("Intuitive, compassionate, and artistic.\r\nShe feels the world in colors and emotions.\r\nLoves unconditionally and forgives easily.\r\nHer heart is pure magic.");
-
+                    traits = @"Intuitive, compassionate, and artistic.
+She feels the world in colors and emotions.
+Loves unconditionally and forgives easily.
+Her heart is pure magic.";
                     break;
 
                 case "Aries":
-
-                    Console.WriteLine("Fierce and independent, she knows what she wants.\r\nShe’s brave enough to take the lead and doesn’t fear rejection.\r\nFull of fire, passion, and ambition.\r\nShe’s unstoppable when motivated.");
-
+                    traits = @"Fierce and independent, she knows what she wants.
+She’s brave enough to take the lead and doesn’t fear rejection.
+Full of fire, passion, and ambition.
+She’s unstoppable when motivated.";
                     break;
 
                 case "Taurus":
-
-                    Console.WriteLine("Grounded yet sensual, she radiates steady energy.\r\nShe’s patient, nurturing, and loves beauty.\r\nWhen she loves, it’s deeply and genuinely.\r\nA Taurus woman is loyal for life.");
-
+                    traits = @"Grounded yet sensual, she radiates steady energy.
+She’s patient, nurturing, and loves beauty.
+When she loves, it’s deeply and genuinely.
+A Taurus woman is loyal for life.";
                     break;
 
                 case "Gemini":
-
-                    Console.WriteLine("Playful and curious, she’s full of stories and thoughts.\r\nShe shifts moods quickly but never loses her spark.\r\nSmart and sociable, she can connect with anyone.\r\nThere’s never a dull moment with her.");
+                    traits = @"Playful and curious, she’s full of stories and thoughts.
+She shifts moods quickly but never loses her spark.
+Smart and sociable, she can connect with anyone.
+There’s never a dull moment with her.";
                     break;
 
                 case "Cancer":
-
-                    Console.WriteLine("Gentle, caring, and emotionally intuitive.\r\nShe loves with her whole heart and remembers every detail.\r\nNurturing by nature but strong when needed.\r\nShe creates warmth wherever she goes.");
-
+                    traits = @"Gentle, caring, and emotionally intuitive.
+She loves with her whole heart and remembers every detail.
+Nurturing by nature but strong when needed.
+She creates warmth wherever she goes.";
                     break;
 
                 case "Leo":
-
-                    Console.WriteLine("Radiant, bold, and glamorous.\r\nShe loves being admired but has a heart of gold.\r\nHer presence commands respect and joy.\r\nShe’s passionate, loyal, and unforgettable.");
-
+                    traits = @"Radiant, bold, and glamorous.
+She loves being admired but has a heart of gold.
+Her presence commands respect and joy.
+She’s passionate, loyal, and unforgettable.";
                     break;
 
                 case "Virgo":
-
-                    Console.WriteLine("Elegant, intelligent, and graceful.\r\nShe’s organized and grounded in reality.\r\nCaring but careful — she doesn’t open up easily.\r\nOnce she does, she’s loyal for life.");
-
+                    traits = @"Elegant, intelligent, and graceful.
+She’s organized and grounded in reality.
+Caring but careful — she doesn’t open up easily.
+Once she does, she’s loyal for life.";
                     break;
 
                 case "Libra":
-
-                    Console.WriteLine("Stylish, kind, and socially gifted.\r\nShe values harmony and avoids drama.\r\nRomantic and idealistic, she believes in true love.\r\nShe’s the balance everyone needs.");
-
+                    traits = @"Stylish, kind, and socially gifted.
+She values harmony and avoids drama.
+Romantic and idealistic, she believes in true love.
+She’s the balance everyone needs.";
                     break;
 
                 case "Scorpio":
-
-                    Console.WriteLine("Magnetic and fearless, she owns her emotions.\r\nShe reads people instantly and never fakes connection.\r\nPassionate yet private — her mystery draws people in.\r\nLoyalty is everything to her.");
-
+                    traits = @"Magnetic and fearless, she owns her emotions.
+She reads people instantly and never fakes connection.
+Passionate yet private — her mystery draws people in.
+Loyalty is everything to her.";
                     break;
 
                 case "Sagittarius":
-
-                    Console.WriteLine("Wild-hearted and curious about everything.\r\nShe speaks her mind and hates routine.\r\nIndependent but warm-hearted, she loves deeply.\r\nHer laughter is contagious.");
-
+                    traits = @"Wild-hearted and curious about everything.
+She speaks her mind and hates routine.
+Independent but warm-hearted, she loves deeply.
+Her laughter is contagious.";
                     break;
 
                 case "Capricorn":
-
-                    Console.WriteLine("Strong, classy, and determined.\r\nShe builds her life with precision and grit.\r\nEmotionally guarded but incredibly loyal.\r\nA true boss with a soft core.");
-
+                    traits = @"Strong, classy, and determined.
+She builds her life with precision and grit.
+Emotionally guarded but incredibly loyal.
+A true boss with a soft core.";
                     break;
 
                 default:
-                    Console.WriteLine("Unknown zodiac — no traits available.");
+                    traits = "Unknown zodiac — no traits available.";
                     break;
             }
-
+            Typewrite(traits, 10);
         }
     }
     public void displayZodiacSign(string zodiacSign)
     {
         determine_zodiac_color(zodiacSign);
+        string zodiacLogo;
 
         switch (zodiacSign)
         {
             case "Aries":
-
-                Console.WriteLine(@"
+                zodiacLogo = @"
         .-.   .-.
        (_  \ /  _)
             |
             |
          Aries — The Ram
-");
+";
                 break;
 
             case "Taurus":
-
-                Console.WriteLine(@"
+                zodiacLogo = @"
          .     .
          '.___.'
          .'   `.
@@ -459,120 +610,128 @@ public class zodiac_calculator
         :       :
          `.___.'
        Taurus — The Bull
-");
+";
                 break;
 
             case "Gemini":
-
-                Console.WriteLine(@"
+                zodiacLogo = @"
          ._____.
            | |
            | |
           _|_|_
          '     '
        Gemini — The Twins
-");
+";
                 break;
 
             case "Cancer":
-
-                Console.WriteLine(@"
+                zodiacLogo = @"
       .--.
-     /   _`.     Cancer-  The Crab
+     /   _`.     
     (_) ( )
    '.    /
-     `--'");
+     `--'
+     Cancer — The Crab
+";
                 break;
 
             case "Leo":
-
-                Console.WriteLine(@"
+                zodiacLogo = @"
          .--.
         (    )
         (_)  /
             (_,
         Leo — The Lion
-");
+";
                 break;
 
             case "Virgo":
-
-                Console.WriteLine(@"
+                zodiacLogo = @"
  _
   ' `:--.--.
-     |  |  |_     Virgo-  The Virgin
+     |  |  |_     
      |  |  | )
      |  |  |/
-          (J");
+          (J
+     Virgo — The Virgin
+";
                 break;
 
             case "Libra":
-
-                Console.WriteLine(@"
+                zodiacLogo = @"
         __
-   ___.'  '.___   Libra-  The Balance
-   ____________");
+   ___.'  '.___   
+   ____________
+     Libra — The Balance
+";
                 break;
 
             case "Scorpio":
-
-                Console.WriteLine(@"
+                zodiacLogo = @"
    _
   ' `:--.--.
-     |  |  |      Scorpius-  The Scorpion
+     |  |  |      
      |  |  |
      |  |  |  ..,
-           `---':");
+           `---':
+     Scorpio — The Scorpion
+";
                 break;
 
             case "Sagittarius":
-
-                Console.WriteLine(@"
+                zodiacLogo = @"
           ...
-          .':     Sagittarius-  The Archer
+          .':
         .'
     `..'
-    .'`.");
+    .'`.
+     Sagittarius — The Archer
+";
                 break;
 
             case "Capricorn":
-
-                Console.WriteLine(@"
+                zodiacLogo = @"
             _
-    \      /_)    Capricorn-  The Goat
+    \      /_)    
      \    /`.
       \  /   ;
        \/ __.'
-");
+     Capricorn — The Goat
+";
                 break;
 
             case "Aquarius":
-
-                Console.WriteLine(@"
- .-""-._.-""-._.-   Aquarius-  The Water Bearer
- .-""-._.-""-._.-");
+                zodiacLogo = @"
+ .-""-._.-""-._.-   
+ .-""-._.-""-._.-
+     Aquarius — The Water Bearer
+";
                 break;
 
             case "Pisces":
-
-                Console.WriteLine(@"
-     `-.    .-'   Pisces-  The Fishes
+                zodiacLogo = @"
+     `-.    .-'   
         :  :
       --:--:--
         :  :
-     .-'    `-.");
+     .-'    `-.
+     Pisces — The Fishes
+";
                 break;
 
             default:
-
-                Console.WriteLine("Unknown zodiac — no ASCII art available.");
+                zodiacLogo = "Unknown zodiac — no ASCII art available.";
                 break;
+        }
+
+        foreach (var line in zodiacLogo.Split('\n'))
+        {
+            Console.WriteLine(line);
+            Thread.Sleep(100);
         }
 
         Console.ResetColor();
     }
-
-
     public void displayWelcomeMessage()
     {
         Console.ForegroundColor = ConsoleColor.Green;
@@ -684,75 +843,44 @@ public class zodiac_calculator
                                               ");
         Console.ResetColor();
     }
-
-    public void displayGoodbyeMessage()
+    public void displayGoodbyeMessage(string name)
     {
-        string[] art1 =
-        {
-        "                          _",
-        "                         / )",
-        "                        / /    _",
-        "              _        / /    / )",
-        "             ( `.     / /-.  / /",
-        "              `\\ \\   / // /`/ /",
-        "                ; `-`  (_/ / /",
-        "                |       (_/ /",
-        "                \\          /",
-        "                 )       /`",
-        "                /      /`"
-    };
+        Console.ForegroundColor = ConsoleColor.DarkMagenta;
+        //string art1 = @"
+        //                  _
+        //                 / )
+        //                / /    _
+        //      _        / /    / )
+        //     ( `.     / /-.  / /
+        //      `\ \   / // /`/ /
+        //        ; `-`  (_/ / /
+        //        |       (_/ /
+        //        \          /
+        //         )       /`
+        //        /      /`";
 
-        string[] art2 =
-        {
-        " _______                               ",
-        "|     __|.-----.-----.    .--.--.---.-.",
-        "|__     ||  -__|  -__|    |  |  |  _  |",
-        "|_______||_____|_____|    |___  |___._|",
-        "                          |_____|      "
-    };
+        string art2 = @"
+ _______                 __      _____               __    
+|     __|.-----.-----.--|  |    |     |_.--.--.----.|  |--.
+|    |  ||  _  |  _  |  _  |    |       |  |  |  __||    < 
+|_______||_____|_____|_____|    |_______|_____|____||__|__|";
 
-        ConsoleColor[] colors =
-        {
-        ConsoleColor.DarkGreen, ConsoleColor.Green, ConsoleColor.DarkGreen
-    };
+        //foreach (var line in art1.Split('\n'))
+        //{
+        //    Console.WriteLine(line);
+        //    Thread.Sleep(100);
+        //    Console.WriteLine();
+        //}
 
-        // animate first art
-        for (int i = 0; i < art1.Length; i++)
+        foreach (var line in art2.Split('\n'))
         {
-            Console.ForegroundColor = colors[i % colors.Length];
-            Console.WriteLine(art1[i]);
-            Thread.Sleep(80);
-        }
-
-        Console.WriteLine();
-        Thread.Sleep(300);
-
-        // animate second art
-        for (int i = 0; i < art2.Length; i++)
-        {
-            Console.ForegroundColor = colors[(i + 1) % colors.Length];
-            Console.WriteLine(art2[i]);
+            Console.WriteLine(line);
             Thread.Sleep(100);
+            Console.WriteLine();
         }
 
-        Thread.Sleep(500);
+        Typewrite("Good luck on your journey,"+name, 100);
         Console.ResetColor();
-        Console.WriteLine();
-
-        // typewriter outro
-        string message = "Goodbye, have a great time!";
-        int left = (Console.WindowWidth - message.Length) / 2;
-        if (left > 0) Console.CursorLeft = left;
-
-        foreach (char c in message)
-        {
-            Console.ForegroundColor = colors[c % colors.Length];
-            Console.Write(c);
-            Thread.Sleep(60);
-        }
-
-        Console.ResetColor();
-        Console.WriteLine("\n");
     }
 
     public void displayReminder(string zodiac)
@@ -768,97 +896,6 @@ public class zodiac_calculator
 ");
         Console.WriteLine("Don’t let them define your choices or relationships — trust your logic and life experiences too.");
     }
-
-    public void displayCareer(string zodiac)
-    {
-        determine_zodiac_color(zodiac);
-        Console.WriteLine(@"
- ______                              
-|      |.---.-.----.-----.-----.----.
-|   ---||  _  |   _|  -__|  -__|   _|
-|______||___._|__| |_____|_____|__|  ");
-        Console.WriteLine();
-        switch (zodiac)
-        {
-            case "Aries":
-                Console.WriteLine("Aries — The Leader");
-                Console.WriteLine("Best Careers: Entrepreneur, Athlete, Military Officer, Emergency Responder");
-                Console.WriteLine("Aries thrives where action, competition, and leadership are key.");
-                break;
-
-            case "Taurus":
-                Console.WriteLine("Taurus — The Builder");
-                Console.WriteLine("Best Careers: Banker, Chef, Interior Designer, Gardener, Musician");
-                Console.WriteLine("They excel in stable, creative, and hands-on environments that offer comfort and reward.");
-                break;
-
-            case "Gemini":
-                Console.WriteLine("Gemini — The Communicator");
-                Console.WriteLine("Best Careers: Journalist, Marketer, Teacher, Public Relations, Software Developer");
-                Console.WriteLine("Geminis succeed where they can share ideas, learn fast, and adapt to change.");
-                break;
-
-            case "Cancer":
-                Console.WriteLine("Cancer — The Nurturer");
-                Console.WriteLine("Best Careers: Counselor, Nurse, Social Worker, Chef, Real Estate Agent");
-                Console.WriteLine("Cancers excel in emotionally supportive, people-focused roles that bring security to others.");
-                break;
-
-            case "Leo":
-                Console.WriteLine("Leo — The Performer");
-                Console.WriteLine("Best Careers: Actor, Manager, Designer, Politician, Influencer");
-                Console.WriteLine("Leos shine in careers where they can inspire, lead, and be recognized for their creativity.");
-                break;
-
-            case "Virgo":
-                Console.WriteLine("Virgo — The Analyst");
-                Console.WriteLine("Best Careers: Editor, Doctor, Data Analyst, Researcher, Engineer");
-                Console.WriteLine("Virgos do best in precise, detail-driven environments that value order and efficiency.");
-                break;
-
-            case "Libra":
-                Console.WriteLine("Libra — The Diplomat");
-                Console.WriteLine("Best Careers: Lawyer, Mediator, Designer, HR Specialist, Event Planner");
-                Console.WriteLine("Libras succeed where balance, harmony, and teamwork are essential.");
-                break;
-
-            case "Scorpio":
-                Console.WriteLine("Scorpio — The Strategist");
-                Console.WriteLine("Best Careers: Psychologist, Detective, Scientist, Financial Analyst, Surgeon");
-                Console.WriteLine("Scorpios thrive in deep, investigative, and high-stakes environments.");
-                break;
-
-            case "Sagittarius":
-                Console.WriteLine("Sagittarius — The Explorer");
-                Console.WriteLine("Best Careers: Travel Blogger, Professor, Pilot, Writer, Entrepreneur");
-                Console.WriteLine("Sagittarians love freedom, exploration, and big ideas — they need space to roam and grow.");
-                break;
-
-            case "Capricorn":
-                Console.WriteLine("Capricorn — The Achiever");
-                Console.WriteLine("Best Careers: CEO, Engineer, Architect, Accountant, Project Manager");
-                Console.WriteLine("Capricorns excel in structured careers that demand responsibility, patience, and strategy.");
-                break;
-
-            case "Aquarius":
-                Console.WriteLine("Aquarius — The Visionary");
-                Console.WriteLine("Best Careers: Scientist, Inventor, Tech Developer, Activist, Researcher");
-                Console.WriteLine("Aquarians thrive where innovation, originality, and community impact matter most.");
-                break;
-
-            case "Pisces":
-                Console.WriteLine("Pisces — The Dreamer");
-                Console.WriteLine("Best Careers: Artist, Therapist, Musician, Writer, Photographer");
-                Console.WriteLine("Pisces shine in creative or healing roles that let them express empathy and imagination.");
-                break;
-
-            default:
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Unknown zodiac sign. Please check your input.");
-                break;
-        }
-    }
-
     public void displayBuddah()
     {
         string buddahArt = @"
@@ -924,17 +961,6 @@ public class zodiac_calculator
 
         Console.ResetColor();
     }
-
-    static void Typewrite(string text, int delayMs)
-    {
-        foreach (char c in text)
-        {
-            Console.Write(c);
-            Thread.Sleep(delayMs);
-        }
-        Console.WriteLine();
-    }
-
     public void displayHeaven()
     {
         Console.ForegroundColor=ConsoleColor.DarkYellow;

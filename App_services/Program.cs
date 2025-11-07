@@ -5,6 +5,50 @@ namespace App_services
 {
     internal class Program
     {
+        //make text look like it's being typed
+        static void Typewrite(string text, int delayMs)
+        {
+            foreach (char c in text)
+            {
+                Console.Write(c);
+                Thread.Sleep(delayMs);
+            }
+            Console.WriteLine();
+        }
+
+        //display intro
+        static void displayIntro()
+        {
+            string welcomMessage = @"This app combines learning and entertainment.
+It helps you explore zodiac signs and Buddha prayers in a fun, interactive way while deepening your knowledge and self-awareness.";
+            string intro = @"
+    .                  .-.    .  _   *     _   .
+           *          /   \     ((       _/ \       *    .
+         _    .   .--'\/\_ \     `      /    \  *    ___
+     *  / \_    _/ ^      \/\'__        /\/\  /\  __/   \ *
+       /    \  /    .'   _/  /  \  *' /    \/  \/ .`'\_/\   .
+  .   /\/\  /\/ :' __  ^/  ^/    `--./.'  ^  `-.\ _    _:\ _
+     /    \/  \  _/  \-' __/.' ^ _   \_   .'\   _/ \ .  __/ \
+   /\  .-   `. \/     \ / -.   _/ \ -. `_/   \ /    `._/  ^  \
+  /  `-.__ ^   / .-'.--'    . /    `--./ .-'  `-.  `-. `.  -  `.
+@/        `.  / /      `-.   /  .-'   / .   .'   \    \  \  .-  \%
+@&8jgs@@%% @)&@&(88&@.-_=_-=_-=_-=_-=_.8@% &@&&8(8%@%8)(8@%8 8%@)%
+@88:::&(&8&&8:::::%&`.~-_~~-~~_~-~_~-~~=.'@(&%::::%@8&8)::&#@8::::
+`::::::8%@@%:::::@%&8:`.=~~-.~~-.~~=..~'8::::::::&@8:::::&8:::::'
+ `::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::.'";
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            foreach (var line in intro.Split('\n'))
+            {
+                Console.WriteLine(line);
+                Thread.Sleep(100); // delay in milliseconds
+            }
+
+            Console.WriteLine();
+            Typewrite(welcomMessage, 20);
+            Console.ResetColor();
+            Console.WriteLine();
+        }
+
         //display game story
         static void displayStory()
         {
@@ -26,7 +70,7 @@ Good luck on your journey to redemption!";
 
             Console.ResetColor();
             Console.WriteLine("\n");
-            Thread.Sleep(4000);//stays visible for 5 seconds
+            Thread.Sleep(3500);//stays visible for 3.5 seconds
             Console.Clear();
         }
 
@@ -98,6 +142,8 @@ Good luck on your journey to redemption!";
             string name;
 
             zodiac_calculator zodiac_Calculator = new zodiac_calculator();
+            //Display intro
+            displayIntro();
 
             //Ask for user's information
             Console.Write("Enter your name: ");
@@ -135,20 +181,22 @@ Good luck on your journey to redemption!";
 
             }
 
+            //Display game story
+            displayStory();
+
             //The main game loop
             while (karma<1000)
             {
                 karma = -1000;
-                //Display story
-                displayStory();
-
+          
                 //Display status
                 displayStatus(name,karma, inventory);
 
                 //Display available services
 
                 Console.WriteLine("------------------------");
-
+                
+                //Display main logo
                 zodiac_Calculator.displayMainLogo();
 
                 Console.WriteLine("1.Pray");
@@ -180,7 +228,7 @@ Good luck on your journey to redemption!";
                 {
                     case 1:
                         Console.WriteLine("Pray Selected");
-                        Prayer[] P = Pray.CreatePrayer(); // get the method into this file| fix tmr 
+                        //Prayer[] P = Pray.CreatePrayer(); // get the method into this file| fix tmr 
                         karma = 1500; //for testing purposes, set karma to 1500 to exit the loop
                         break;
                     case 2:
@@ -262,7 +310,9 @@ Good luck on your journey to redemption!";
                         }
 
                         zodiac_Calculator.displayReminder("");
-                        zodiac_Calculator.displayGoodbyeMessage();
+                        zodiac_Calculator.displayGoodbyeMessage(name);
+                        Thread.Sleep(4000);
+                        Console.Clear();
                         break;
                     case 4:
                         Console.WriteLine("Offer selected.");
