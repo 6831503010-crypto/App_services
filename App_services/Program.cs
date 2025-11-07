@@ -87,6 +87,29 @@ Good luck on your journey to redemption!";
                 return false;
             }
         }
+
+        // Creating a set of prayers
+        public static Prayer[] CreatePrayer()
+        {
+            Prayer p1 = new Prayer();
+            p1.Line1 = "Namo Tatsa Pakawa To Araha To Summa Sumbhudda Sa";
+            p1.Line2 = "Namo Tatsa Pakawa To Araha To Summa Sumbhudda Sa";
+            p1.Line3 = "Namo Tatsa Pakawa To Araha To Summa Sumbhudda Sa";
+
+            Prayer p2 = new Prayer();
+            p2.Line1 = "Ei Mina Sakaray Na Bhudthung Apibhu Shayama";
+            p2.Line2 = "Ei Mina Sakaray Na Thummung Apibhu Shayama";
+            p2.Line3 = "Ei Mina Sakaray Na Sungkhung Apibhu Shayama";
+
+            Prayer p3 = new Prayer();
+            p3.Line1 = "Suppay Sutta Avera Hontuh ";
+            p3.Line2 = "Aupphaya Phutsha Honthu Aneka Hontuh";
+            p3.Line3 = "Sukkee Autthanung Pariha Runtuh";
+
+            Prayer[] allprayer = { p1, p2, p3 };
+            return allprayer;
+
+        }
         static void Main(string[] args)
         {
             //variables initialization and declaration
@@ -96,6 +119,7 @@ Good luck on your journey to redemption!";
             int karma = 1;
             string[] inventory = new string[] { };
             string name;
+
 
             zodiac_calculator zodiac_Calculator = new zodiac_calculator();
 
@@ -179,8 +203,40 @@ Good luck on your journey to redemption!";
                 switch (choice)
                 {
                     case 1:
+                        Console.WriteLine("------------------------");
                         Console.WriteLine("Pray Selected");
-                        Prayer[] P = Pray.CreatePrayer(); // get the method into this file| fix tmr 
+                        Console.WriteLine("------------------------");
+                        Prayer[] Prayers = CreatePrayer();         // now we have a set of prayers 
+                        int Score = Pray.PrayerInstruction();      // pick random prayer from Prayers, engage user, clean up/compare/keep score
+                        // Prayer doesnt randomize, fix by putting in this file?
+                        switch (Score)
+                        {
+                            case 3:
+                                zodiac_calculator.Typewrite("Your prayer has been answered... (3/3)", 100);  //P.Kenny's method; make the text type out like a type writer
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine(" +300 Karma"); Console.ResetColor ();
+                                karma += 300;                      // 300 for now may change for more fun
+                                break;
+                            case 2:
+                                zodiac_calculator.Typewrite("Your prayer has been answered... (2/3)", 100);
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine(" +200 Karma"); Console.ResetColor();
+                                karma += 200;
+                                break;
+                            case 1:
+                                zodiac_calculator.Typewrite("Your prayer has been answered... (1/3)", 100);
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine(" +100 Karma"); Console.ResetColor();
+                                karma += 100;
+                                break;
+                            default:
+                                zodiac_calculator.Typewrite("Your prayer...", 100);                     
+                                Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);  // delete the space added by the method
+                                zodiac_calculator.Typewrite("Is terrible", 50);
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine(" +0 Karma"); Console.ResetColor();
+                                break;
+                        }
                         karma = 1500; //for testing purposes, set karma to 1500 to exit the loop
                         break;
                     case 2:

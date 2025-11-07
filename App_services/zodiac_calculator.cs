@@ -925,7 +925,7 @@ public class zodiac_calculator
         Console.ResetColor();
     }
 
-    static void Typewrite(string text, int delayMs)
+    public static void Typewrite(string text, int delayMs)
     {
         foreach (char c in text)
         {
