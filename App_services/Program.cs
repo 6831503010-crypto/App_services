@@ -164,12 +164,12 @@ Good luck on your journey to redemption!";
                     Console.Write("What do you want to do?: ");
                     if (int.TryParse(Console.ReadLine(), out choice))//out passes a variable by reference so the method can store a value in it
                     {
-                        Console.WriteLine("Your choice:{0}", choice);
-                        validChoice = false;
+                        Console.WriteLine("Your choice:{0}", choice);  //if TryParse can convert to int do this (return true)
+                        validChoice = false;                           // if you Parse and failed = error 
                     }
                     else
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.Red;   // if can't do this (return false instead of error)
                         Console.WriteLine("Invalid input. Please enter a number.");
                         Console.ResetColor();
                     }
@@ -180,6 +180,7 @@ Good luck on your journey to redemption!";
                 {
                     case 1:
                         Console.WriteLine("Pray Selected");
+                        Prayer[] P = Pray.CreatePrayer(); // get the method into this file| fix tmr 
                         karma = 1500; //for testing purposes, set karma to 1500 to exit the loop
                         break;
                     case 2:
@@ -280,7 +281,7 @@ Good luck on your journey to redemption!";
                         return;
                     default:
                         Console.WriteLine("Invalid choice. Please try again.");
-                        break;
+                        break;        // stops the loop vvv code runs after break
                 }
 
                 validChoice = true;
