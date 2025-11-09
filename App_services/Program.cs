@@ -251,11 +251,50 @@ Good luck on your journey to redemption!";
                 switch (choice)
                 {
                     case 1:
+                        Console.WriteLine("");
                         Console.WriteLine("------------------------");
                         Console.WriteLine("Pray Selected");
-                        //Prayer[] P = Pray.CreatePrayer(); // get the method into this file| fix tmr 
-                        karma = 1500; //for testing purposes, set karma to 1500 to exit the loop
+                        Console.WriteLine("------------------------");
+                        Prayer[] Prayers = CreatePrayer();         // now we have a set of prayers 
+                        int Score = Pray.PrayerInstruction();      // pick random prayer from Prayers, engage user, clean up/compare/keep score
+                                                                   // Prayer doesnt randomize, fix by putting in this file?
+                        switch (Score)
+                        {
+                            case 3:
+                                zodiac_calculator.Typewrite("Your prayer has been answered... (3/3)", 100);  //P.Kenny's method; make the text type out like a type writer
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine(" +300 Karma"); Console.ResetColor();
+                                karma += 300;                      // 300 for now may change for more fun
+                                Console.WriteLine("");
+                                Console.WriteLine("");
+                                break;
+                            case 2:
+                                zodiac_calculator.Typewrite("Your prayer has been answered... (2/3)", 100);  
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine(" +200 Karma"); Console.ResetColor();
+                                karma += 200;
+                                Console.WriteLine("");
+                                Console.WriteLine("");
+                                break;
+                            case 1:
+                                zodiac_calculator.Typewrite("Your prayer has been answered... (1/3)", 100);  
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine(" +100 Karma"); Console.ResetColor();
+                                karma += 100;
+                                Console.WriteLine("");
+                                Console.WriteLine("");
+                                break;
+                            default:
+                                zodiac_calculator.Typewrite("Your prayer is terrible... (0/3)", 100);  
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine(" +0 Karma"); Console.ResetColor();
+                                Console.WriteLine("");
+                                Console.WriteLine("");
+                                break;
+                        }
                         break;
+                        
+
                     case 2:
                         Console.WriteLine("Store Selected");
                         break;

@@ -48,7 +48,7 @@ namespace App_services
 
         }
         public static int PrayerInstruction()
-        {            
+        {
             Prayer[] allprayer = CreatePrayer();
             Random rand = new Random();
             int Randindex = rand.Next(allprayer.Length);    //randomly pick index from this []
@@ -71,7 +71,7 @@ namespace App_services
             string pray3 = Console.ReadLine();
 
             // clean up user input
-            pray1 = pray1.Trim();        
+            pray1 = pray1.Trim();
             pray2 = pray2.Trim();
             pray2 = pray2.Trim();
 

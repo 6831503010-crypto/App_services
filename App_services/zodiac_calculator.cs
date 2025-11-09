@@ -181,7 +181,7 @@ public class zodiac_calculator
     }
 
     //Display methods
-    static void Typewrite(string text, int delayMs)
+    public static void Typewrite(string text, int delayMs)
     {
         foreach (char c in text)
         {
