@@ -258,6 +258,7 @@ Good luck on your journey to redemption!";
                         break;
                     case 2:
                         Console.WriteLine("Store Selected");
+
                         break;
                     case 3:
                         //Display welcome message
