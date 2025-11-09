@@ -54,19 +54,19 @@ namespace App_services
             int Randindex = rand.Next(allprayer.Length);    //randomly pick index from this []
             Prayer Randprayer = allprayer[Randindex];       // get a random prayer from index of [] of prayers
 
-            Console.WriteLine("Type your prayer... ");
+            zodiac_calculator.Typewrite("Type your prayer... ", 100);
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"| {Randprayer.Line1} |");   // Shows Line 1 of this prayer
+            zodiac_calculator.Typewrite($"| {Randprayer.Line1} |", 20);   // Shows Line 1 of this prayer
             Console.ResetColor();
             string pray1 = Console.ReadLine();              // Get user's input
 
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"| {Randprayer.Line2} |");
+            zodiac_calculator.Typewrite($"| {Randprayer.Line2} |", 20);
             Console.ResetColor();
             string pray2 = Console.ReadLine();
 
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"| {Randprayer.Line3} |");
+            zodiac_calculator.Typewrite($"| {Randprayer.Line3} |", 20);
             Console.ResetColor();
             string pray3 = Console.ReadLine();
 

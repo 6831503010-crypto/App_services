@@ -224,10 +224,9 @@ Good luck on your journey to redemption!";
                 zodiac_Calculator.displayMainLogo();
 
                 Console.WriteLine("1.Pray");
-                Console.WriteLine("2.Go to store");
-                Console.WriteLine("3.Check zodiac sign");
-                Console.WriteLine("4.Offer");
-                Console.WriteLine("5.Exit");
+                Console.WriteLine("2.Offering");
+                Console.WriteLine("3.Celestial Readings");    // Changed the menu to new idea
+                Console.WriteLine("4.Exit");
                 Console.WriteLine("------------------------");
 
                 //ask for user's choice and validate input loop
@@ -255,6 +254,8 @@ Good luck on your journey to redemption!";
                         Console.WriteLine("------------------------");
                         Console.WriteLine("Pray Selected");
                         Console.WriteLine("------------------------");
+                        zodiac_calculator.displayBuddah();
+                        Console.WriteLine("");
                         Prayer[] Prayers = CreatePrayer();         // now we have a set of prayers 
                         int Score = Pray.PrayerInstruction();      // pick random prayer from Prayers, engage user, clean up/compare/keep score
                                                                    // Prayer doesnt randomize, fix by putting in this file?
@@ -265,38 +266,35 @@ Good luck on your journey to redemption!";
                                 Console.ForegroundColor = ConsoleColor.Green;
                                 Console.WriteLine(" +300 Karma"); Console.ResetColor();
                                 karma += 300;                      // 300 for now may change for more fun
-                                Console.WriteLine("");
-                                Console.WriteLine("");
+                                Console.WriteLine("\n");
                                 break;
                             case 2:
-                                zodiac_calculator.Typewrite("Your prayer has been answered... (2/3)", 100);  
+                                zodiac_calculator.Typewrite("\nYour prayer has been answered... (2/3)", 100);  
                                 Console.ForegroundColor = ConsoleColor.Green;
                                 Console.WriteLine(" +200 Karma"); Console.ResetColor();
                                 karma += 200;
-                                Console.WriteLine("");
-                                Console.WriteLine("");
+                                Console.WriteLine("\n");
                                 break;
                             case 1:
-                                zodiac_calculator.Typewrite("Your prayer has been answered... (1/3)", 100);  
+                                zodiac_calculator.Typewrite("\nYour prayer has been answered... (1/3)", 100);  
                                 Console.ForegroundColor = ConsoleColor.Green;
                                 Console.WriteLine(" +100 Karma"); Console.ResetColor();
                                 karma += 100;
-                                Console.WriteLine("");
-                                Console.WriteLine("");
+                                Console.WriteLine("\n");
                                 break;
                             default:
-                                zodiac_calculator.Typewrite("Your prayer is terrible... (0/3)", 100);  
+                                zodiac_calculator.Typewrite("\nYour prayer is terrible... (0/3)", 100);  
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine(" +0 Karma"); Console.ResetColor();
-                                Console.WriteLine("");
-                                Console.WriteLine("");
+                                Console.WriteLine("\n");
+
                                 break;
                         }
                         break;
                         
 
                     case 2:
-                        Console.WriteLine("Store Selected");
+                        Console.WriteLine("Offering Selected");
                         break;
                     case 3:
                         //Display welcome message
@@ -378,10 +376,8 @@ Good luck on your journey to redemption!";
                         Thread.Sleep(4000);
                         Console.Clear();
                         break;
+
                     case 4:
-                        Console.WriteLine("Offer selected.");
-                        break;
-                    case 5:
                         Console.WriteLine("Leaving the redemption journey.");
                         //Display final status and ending when user chooses to exit
                         if (karma < 1000)
