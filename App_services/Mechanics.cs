@@ -85,18 +85,12 @@ namespace App_services
             string fixed1 = pray1.ToLower();
             string fixed2 = pray2.ToLower();
             string fixed3 = pray3.ToLower();
-            Console.WriteLine("Your Prayer:");
-            Console.WriteLine(fixed1);
-            Console.WriteLine(fixed2);
-            Console.WriteLine(fixed3);
+            
 
             string compare1 = Randprayer.Line1.ToLower();
             string compare2 = Randprayer.Line2.ToLower();
             string compare3 = Randprayer.Line3.ToLower();
-            Console.WriteLine("Correct Prayer:");
-            Console.WriteLine(compare1);
-            Console.WriteLine(compare2);
-            Console.WriteLine(compare3);
+            
 
             int score = 0;
             if (fixed1 == compare1) 
@@ -145,3 +139,4 @@ namespace App_services
 // Namo Tatsa Pakawa To Araha To Summa Sumbhudda Sa
 //prayers[1] = new Prayers("Ei Mina Sakaray Na Bhudthung Apibhu Shayama", "Ei Mina Sakaray Na Thummung Apibhu Shayama", "Ei Mina Sakaray Na Sungkhung Apibhu Shayama");
 //prayers[2] = new Prayers("A hung Sukito Homi A hung nittukko Homi", )
+

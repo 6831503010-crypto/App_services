@@ -296,6 +296,8 @@ Good luck on your journey to redemption!";
 
                     case 2:
                         Console.WriteLine("Offering Selected");
+                        
+
                         break;
 
                     case 3:
