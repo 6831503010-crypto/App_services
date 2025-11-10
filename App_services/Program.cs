@@ -160,7 +160,7 @@ Good luck on your journey to redemption!";
             string ans = "y";
             bool validChoice = true;
             int choice = 0; //Have to declare and initiate choice here to use it in switch case
-            int karma = 1000;
+            int karma = -1000;
             string[] inventory = new string[] { };
             string name;
 
@@ -294,6 +294,8 @@ Good luck on your journey to redemption!";
 
                     case 2:
                         Console.WriteLine("Offering Selected");
+                        
+
                         break;
 
                     case 3:
