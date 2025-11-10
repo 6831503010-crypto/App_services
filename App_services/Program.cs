@@ -256,10 +256,121 @@ Good luck on your journey to redemption!";
                         //Prayer[] P = Pray.CreatePrayer(); // get the method into this file| fix tmr 
                         karma = 1500; //for testing purposes, set karma to 1500 to exit the loop
                         break;
+
                     case 2:
                         Console.WriteLine("Store Selected");
+                        string[] question = {"1.what was the original name of the Buddha?",
+                              "2.Who were the father and mother of Prince Siddhartha?",
+                              "3.At what age did the Buddha attain enlightenment?",
+                              "4.Who was the Buddha's chief disciple on the right side?",
+                              "5.Who was the first monk in Buddhism?",
+                              "6.What does (The four Noble Truths) refer to?",
+                              "7.Which of the following is NOT one of the FIVE PRECRPTS?",
+                              "8.Where was the Buddha born?",
+                              "9.Who were the first listeners of the Buddha's sermon",
+                              "10.What were the four 'Divine Messengers'(Deva Duta) that Prince Siddhartha saw?"};
+
+                        string[,] choices ={ { "Prince Siddhartha", "Prince Ajatashatru", "Prince Devadatta" },
+                              {"K.Bimbisara and Q.Revadee","Emperor Ashoka and Q. Pimpaa","K.Suddhodana and Q.Sirimahamaya" },
+                              { " 29 Y"," 35 Y"," 40 Y"},
+                              { " Venerable Ananda "," Venerable Sariputta" , " Venerable Moggallana" },
+                              { "Assaji","Venerable Ananda","Venerable Kondanna"},
+                              { "The path to end suffering","Four sublime truths","The law of karma" },
+                              { "Not Chanting","Not killing","Not stealing" },
+                              { "Kapilavastu","Varanasi","Lumbini Garden"},
+                              { "Venerable Ananda","Venerable Sariputta","The Five Ascetics(Pancavaggiya)"},
+                              { "An old man, A sick person, A dead body and ascetic(Monk)",
+                                "A poor man, A rich man, A good person and a bad person",
+                                "A sick person, A healthy person, A beautiful person and an ugly person" } };
+                        
+                        int[] answers = { 0, 2, 1, 1, 2, 1, 0, 2, 2, 0 };
+
+                        List<string> offeringHistory = new List<string>();
+                        int round = 1;
+
+                        string playAgain;
+                        do
+                        {
+                            int score = 0;
+                            Console.WriteLine($"--- offering ---");
+                            Console.WriteLine(" ");
+                            Console.WriteLine($" Welcome to Buddhism Quiz! - Round {round} ");
+                            Console.WriteLine(" ");
+
+                            for (int i = 0; i < question.Length; i++)
+                            {
+                                Console.WriteLine("========================================================");
+                                Console.WriteLine($"Question No.{i + 1}");
+                                Console.WriteLine(question[i]);
+                                Console.WriteLine();
+
+                                for (int j = 0; j < 3; j++)
+                                {
+                                    Console.WriteLine($"{j + 1}. {choices[i, j]}");
+                                }
+
+                                while (true)
+                                {
+                                    Console.Write("Pls...select 1,2,3 : ");
+                                    //string input = Console.ReadLine();
+
+                                    if (int.TryParse(input, out int userChoice) && userChoice >= 1 && userChoice <= 3)
+                                    {
+                                        if (userChoice - 1 == answers[i])
+                                        {
+                                            Console.WriteLine(" Correct!!! ");
+                                            score++;
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine($" Wrong!!! The correct is {choices[i, answers[i]]}");
+                                        }
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Invalid input. Pls select 1-3 only");
+                                    }
+                                }
+
+
+                            }
+                            Console.WriteLine("\n========================================================");
+                            Console.WriteLine($"Total Score is : {score}/{question.Length}");
+
+                            string offering;
+                            if (score >= 8)
+                                offering = "You offer Sangha offering";
+                            else if (score >= 5)
+                                offering = "You offer Money and Flower";
+                            else if (score >= 2)
+                                offering = "You offer Candles";
+                            else
+                                offering = "You offer nothing";
+
+                            Console.WriteLine($"Your reward: {offering}");
+                            Console.WriteLine("========================================================");
+
+                            offeringHistory.Add($"Round {round}: Score {score}/10 → {offering}");
+                            round++;
+
+                            Console.Write("\nDo you want to play again? (Y/N): ");
+                            playAgain = Console.ReadLine().Trim().ToUpper();
+
+                        }
+                        while (playAgain == "Y");
+
+                        Console.WriteLine("\n--- Summary of Offerings ---");
+                        foreach (var entry in offeringHistory)
+                        {
+                            Console.WriteLine(entry);
+                        }
+
+                        Console.WriteLine("\nThank you for playing the Buddhism Quiz!");
+
 
                         break;
+
                     case 3:
                         //Display welcome message
                         zodiac_Calculator.displayWelcomeMessage();
