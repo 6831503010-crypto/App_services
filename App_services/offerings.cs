@@ -29,13 +29,13 @@ namespace App_services
                  "\nC.A sick person, A healthy person, A beautiful person and an ugly person", "A" }};
 
         int score = 0;
-        Console.WriteLine("\n--  offering  --");
-                Console.WriteLine(" ");
-                Console.WriteLine($" Welcome to Buddhism Quiz - Round {round} ");
-                Console.WriteLine(" ");
+        //Console.WriteLine("\n--  offering  --");
+        //        Console.WriteLine(" ");
+        //        Console.WriteLine($" Welcome to Buddhism Quiz - Round {round} ");
+        //        Console.WriteLine(" ");
 
-            Console.Write(")
-
+        //    Console.Write("");
+        //I think you can only use Console.WriteLine in the main program file.
     }
 }
 
