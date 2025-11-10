@@ -160,7 +160,7 @@ Good luck on your journey to redemption!";
             string ans = "y";
             bool validChoice = true;
             int choice = 0; //Have to declare and initiate choice here to use it in switch case
-            int karma = 1;
+            int karma = 1000;
             string[] inventory = new string[] { };
             string name;
 
@@ -178,8 +178,9 @@ Good luck on your journey to redemption!";
             bool validDate = false;
             bool validGender = false;
 
-            string input = "";
-            string gender = "";
+            //A container for user input,had to be declared outside the loop to be used after
+            string input = "";//for asking input date
+            string gender = "";//for asking gender
             while (!validDate || !validGender)
             {
                 if (!validDate)
@@ -211,8 +212,6 @@ Good luck on your journey to redemption!";
             //The main game loop
             while (karma<1000)
             {
-                karma = -1000;
-          
                 //Display status
                 displayStatus(name,karma, inventory);
 
@@ -252,7 +251,7 @@ Good luck on your journey to redemption!";
                     case 1:
                         Console.WriteLine("");
                         Console.WriteLine("------------------------");
-                        Console.WriteLine("Pray Selected");
+                        Typewrite("Pray Selected",20);
                         Console.WriteLine("------------------------");
                         zodiac_calculator.displayBuddah();
                         Console.WriteLine("");
@@ -298,9 +297,7 @@ Good luck on your journey to redemption!";
                         break;
                     case 3:
                         //Display welcome message
-                        zodiac_Calculator.displayWelcomeMessage();
-                        Console.WriteLine();
-                        Console.WriteLine("Let's see what your zodiac signs and traits are!!!");
+                        zodiac_Calculator.displayStars();
                         Console.WriteLine("___________________________________________________");
                         Console.WriteLine();
 

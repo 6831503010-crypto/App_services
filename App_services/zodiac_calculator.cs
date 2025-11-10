@@ -732,6 +732,34 @@ A true boss with a soft core.";
 
         Console.ResetColor();
     }
+
+    public void displayStars()
+    {
+        string starsArtCombined = @"
+                 '                                 .                      .
+            *          .                           .                      ;
+                   *      '                        :                  - --+- -
+              *              *                     !           .          !
+                                                   |        .             .
+   *   '*                                          |_         +
+          *                                     ,  | `.
+                *                         --- --+-<#>-+- ---  --  -
+                         *                      `._|_,'
+               *                                   T
+                      *                            |
+                                                   ! 
+                                                   :         . : 
+                                                   .       *,
+";
+        Console.ForegroundColor = ConsoleColor.DarkBlue;
+        foreach (var line in starsArtCombined.Split('\n'))
+        {
+            Console.WriteLine(line);
+            Thread.Sleep(100);// tweak speed if you want
+        }
+        Console.ResetColor();
+        Typewrite("Let's see what the stars tell about you...",50);
+    }
     public void displayWelcomeMessage()
     {
         Console.ForegroundColor = ConsoleColor.Green;
@@ -845,39 +873,34 @@ A true boss with a soft core.";
     }
     public void displayGoodbyeMessage(string name)
     {
-        Console.ForegroundColor = ConsoleColor.DarkMagenta;
-        //string art1 = @"
-        //                  _
-        //                 / )
-        //                / /    _
-        //      _        / /    / )
-        //     ( `.     / /-.  / /
-        //      `\ \   / // /`/ /
-        //        ; `-`  (_/ / /
-        //        |       (_/ /
-        //        \          /
-        //         )       /`
-        //        /      /`";
+        Console.ForegroundColor = ConsoleColor.DarkGreen;
 
         string art2 = @"
- _______                 __      _____               __    
-|     __|.-----.-----.--|  |    |     |_.--.--.----.|  |--.
-|    |  ||  _  |  _  |  _  |    |       |  |  |  __||    < 
-|_______||_____|_____|_____|    |_______|_____|____||__|__|";
+     _____     _____
+  ,gdPPPPRb, ,dPPPPRbg,
+ dP'      `YdP'      `Yb
+ 8)        `8'        (8
+ Yb,        ""        ,dP
+  ""8bggg         gggd8""
+  ,gdP""""         """"Ybg,
+ dP'        a        `Yb
+ 8)        ,8,        (8
+ Yb,      ,d8b       ,dP
+  ""8baaaadP""8""Ybaaaad8""
+    `""`""'   8   `""'""'
+            8
+            8
+            8    
+            8    
+            8";
 
-        //foreach (var line in art1.Split('\n'))
+        //foreach (var line in art2.Split('\n'))
         //{
         //    Console.WriteLine(line);
         //    Thread.Sleep(100);
         //    Console.WriteLine();
         //}
-
-        foreach (var line in art2.Split('\n'))
-        {
-            Console.WriteLine(line);
-            Thread.Sleep(100);
-            Console.WriteLine();
-        }
+        Typewrite(art2, 13);
 
         Typewrite("Good luck on your journey,"+name, 100);
         Console.ResetColor();
@@ -965,24 +988,20 @@ A true boss with a soft core.";
     {
         Console.ForegroundColor=ConsoleColor.DarkYellow;
         string heavenArt = @"
-             .---.
-            / ,-- \
-    .--.   ( (^_^) )   .--.
-  ,'    \  (.-`-'(_)  /    `.
- /       `-/ \ `.  \-'       \
-: (_,' .  / (.\_ "") \  . `._) :
-|   `-'(_,\ \     / /._)`-'   |
-|       .  `.\,O,'.'  .   :   |
-|   . : !   /\_  /\   ! . !   |
-| ! |-'-|  : """"T"""" :  |-'-| | |
-| |-'   `-'|   H   |`-'   `-| |
-`-'        |   H .:|        `-'
-           | . H !||
-           | : H :!|
-           | ! H !||
-           | | H |||
-           | | H |||  
-           /_,'V.L|.\ ";
+_      `-._     `-.     `.   \      :      /   .'     .-'     _.-'      _
+ `--._     `-._    `-.    `.  `.    :    .'  .'    .-'    _.-'     _.--'
+      `--._    `-._   `-.   `.  \   :   /  .'   .-'   _.-'    _.--'
+`--.__     `--._   `-._  `-.  `. `. : .' .'  .-'  _.-'   _.--'     __.--'
+__    `--.__    `--._  `-._ `-. `. \:/ .' .-' _.-'  _.--'    __.--'    __
+  `--..__   `--.__   `--._ `-._`-.`_=_'.-'_.-' _.--'   __.--'   __..--'
+--..__   `--..__  `--.__  `--._`-q(-_-)p-'_.--'  __.--'  __..--'   __..--
+      ``--..__  `--..__ `--.__ `-'_) (_`-' __.--' __..--'  __..--''
+...___        ``--..__ `--..__`--/__/  \--'__..--' __..--''        ___...
+      ```---...___    ``--..__`_(<_   _/)_'__..--''    ___...---'''
+```-----....._____```---...___(__\_\_|_/__)___...---'''_____.....-----'''
+ ___   __  ________   _______   _       _   _______    ___   __   _______
+|| \\  ||     ||     ||_____))  \\     //  ||_____||  || \\  ||  ||_____||
+||  \\_||  ___||___  ||     \\   \\___//   ||     ||  ||  \\_||  ||     ||";
         foreach (var line in heavenArt.Split('\n'))
         {
             Console.WriteLine(line);
@@ -990,7 +1009,7 @@ A true boss with a soft core.";
         }
 
         Console.WriteLine(); // spacer
-        Typewrite("Welcome to Heaven, my child", 100); // ms per char
+        Typewrite("Peace has returned to your heart — welcome to the realm beyond sorrow, my child.", 100); // ms per char
         Console.ResetColor();
     }
 

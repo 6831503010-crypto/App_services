@@ -39,7 +39,7 @@ namespace App_services
             p2.Line3 = "Ei Mina Sakaray Na Sungkhung Apibhu Shayama";
 
             Prayer p3 = new Prayer();
-            p3.Line1 = "Suppay Sutta Avera Hontuh ";
+            p3.Line1 = "Suppay Sutta Avera Hontuh";
             p3.Line2 = "Aupphaya Phutsha Honthu Aneka Hontuh";
             p3.Line3 = "Sukkee Autthanung Pariha Runtuh";
 
@@ -85,15 +85,58 @@ namespace App_services
             string fixed1 = pray1.ToLower();
             string fixed2 = pray2.ToLower();
             string fixed3 = pray3.ToLower();
+            Console.WriteLine("Your Prayer:");
+            Console.WriteLine(fixed1);
+            Console.WriteLine(fixed2);
+            Console.WriteLine(fixed3);
 
             string compare1 = Randprayer.Line1.ToLower();
             string compare2 = Randprayer.Line2.ToLower();
             string compare3 = Randprayer.Line3.ToLower();
+            Console.WriteLine("Correct Prayer:");
+            Console.WriteLine(compare1);
+            Console.WriteLine(compare2);
+            Console.WriteLine(compare3);
 
             int score = 0;
-            if (fixed1 == compare1) { score++; }
-            if (fixed2 == compare2) { score++; }
-            if (fixed3 == compare3) { score++; }
+            if (fixed1 == compare1) 
+            { 
+                score++; 
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine();
+                Console.WriteLine("Your prayer: "+pray1);
+                Console.WriteLine("Correct prayer: "+Randprayer.Line1);
+                Console.ResetColor();
+            }
+
+            if (fixed2 == compare2) 
+            { 
+                score++; 
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine();
+                Console.WriteLine("Your prayer: "+pray2);
+                Console.WriteLine("Correct prayer: "+Randprayer.Line2);
+                Console.ResetColor();
+            }
+
+            if (fixed3 == compare3) 
+            { 
+                score++; 
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine();
+                Console.WriteLine("Your prayer: "+pray3);
+                Console.WriteLine("Correct prayer: "+Randprayer.Line3);
+                Console.ResetColor();
+            }
 
             return score;
         }
