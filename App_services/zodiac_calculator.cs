@@ -1033,6 +1033,115 @@ ______         _                      _   _
         Console.ResetColor();
     }
 
+    public void displayOffering(string item)
+    {
+        Console.WriteLine();
+        string flowerArt = @"
+         \'-.      _.-""/             \""-._      .-'/              
+     (\    :  :    /   /               \   \    :  :    /)         
+      \'-.  i |   /   /                 \   \   | i  .-'/          
+       '. \  \i  /_.-""                   ""-._\  i/  / .'           
+         '-'-.; /""                           ""\ ;.-'-'             
+              \/                               \/                  
+            ('""""')                           ('""""')                
+             \  /                             \  /                 
+              )(                               )(                  
+             i__i                             i__i                 
+            i____i                           i____i            ";
+
+        string candleArt = @"
+              )
+             (_)
+            .-'-.
+            |   |
+            |   |
+            |   |
+            |   |
+          __|   |__   .-.
+       .-'  |   |  `-:   :
+      :     `---'     :-'
+       `-._       _.-'
+           '""""""";
+
+        string incenseArt = @"
+        ~     ~      ~
+         ~  ~    ~  ~
+          ~   ~   ~
+           ||  ||  ||
+           ||  ||  ||
+           ||  ||  ||
+           ||  ||  ||
+           ||  ||  ||
+           ||  ||  ||
+           ||  ||  ||
+         __||__||__||__
+        |______________|
+";
+
+        string yourselfArt = @"
+       _=_
+     q(-_-)p
+     '_) (_`
+     /__/  \
+   _(<_   / )_
+  (__\_\_|_/__)";
+
+        switch (item)
+        {
+            case "flowers":
+                Console.ForegroundColor = ConsoleColor.Green;
+                Typewrite(@"You offered flowers to Buddha.
+Their beauty fades, yet their fragrance lingers —
+reminding us that all things bloom and pass in peace.", 20);
+                foreach (var line in flowerArt.Split('\n'))
+                {
+                    Console.WriteLine(line);
+                    Thread.Sleep(50);
+                }
+                break;
+            case "candles":
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Typewrite(@"You offered light to Buddha.
+In that flame burns away ignorance,
+and wisdom dawns — gentle, endless, pure.", 20);
+                foreach (var line in candleArt.Split('\n'))
+                {
+                    Console.WriteLine(line);
+                    Thread.Sleep(50);
+                }
+                Console.WriteLine(@"");
+                break;
+            case "incense sticks":
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Typewrite(@"You offered incense to Buddha.
+Its smoke rises like prayers unspoken,
+carrying your heart toward stillness and release.", 20);
+                foreach (var line in incenseArt.Split('\n'))
+                {
+                    Console.WriteLine(line);
+                    Thread.Sleep(50);
+                }
+                break;
+            case "yourself":
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Typewrite(@"You offered yourself to Buddha.
+In surrender, the illusion of self dissolves —
+what remains is peace, boundless and whole.", 20);
+                foreach (var line in yourselfArt.Split('\n'))
+                {
+                    Console.WriteLine(line);
+                    Thread.Sleep(50);
+                }
+                break;
+            default:
+                Typewrite("Cannot find the item.",20);
+                break;
+        }
+        Console.ResetColor();
+        Console.WriteLine();
+        Thread.Sleep(2500);
+        Console.Clear();
+    }
     //Ask Inputs
     public string askDate()
     {
