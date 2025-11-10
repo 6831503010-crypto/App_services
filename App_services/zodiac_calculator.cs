@@ -181,7 +181,7 @@ public class zodiac_calculator
     }
 
     //Display methods
-    static void Typewrite(string text, int delayMs)
+    public static void Typewrite(string text, int delayMs)
     {
         foreach (char c in text)
         {
@@ -896,7 +896,7 @@ A true boss with a soft core.";
 ");
         Console.WriteLine("Don’t let them define your choices or relationships — trust your logic and life experiences too.");
     }
-    public void displayBuddah()
+    public static void displayBuddah()
     {
         string buddahArt = @"
                            _

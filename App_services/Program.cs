@@ -224,10 +224,9 @@ Good luck on your journey to redemption!";
                 zodiac_Calculator.displayMainLogo();
 
                 Console.WriteLine("1.Pray");
-                Console.WriteLine("2.Go to store");
-                Console.WriteLine("3.Check zodiac sign");
-                Console.WriteLine("4.Offer");
-                Console.WriteLine("5.Exit");
+                Console.WriteLine("2.Offering");
+                Console.WriteLine("3.Celestial Readings");    // Changed the menu to new idea
+                Console.WriteLine("4.Exit");
                 Console.WriteLine("------------------------");
 
                 //ask for user's choice and validate input loop
@@ -251,124 +250,51 @@ Good luck on your journey to redemption!";
                 switch (choice)
                 {
                     case 1:
+                        Console.WriteLine("");
                         Console.WriteLine("------------------------");
                         Console.WriteLine("Pray Selected");
-                        //Prayer[] P = Pray.CreatePrayer(); // get the method into this file| fix tmr 
-                        karma = 1500; //for testing purposes, set karma to 1500 to exit the loop
+                        Console.WriteLine("------------------------");
+                        zodiac_calculator.displayBuddah();
+                        Console.WriteLine("");
+                        Prayer[] Prayers = CreatePrayer();         // now we have a set of prayers 
+                        int Score = Pray.PrayerInstruction();      // pick random prayer from Prayers, engage user, clean up/compare/keep score
+                                                                   // Prayer doesnt randomize, fix by putting in this file?
+                        switch (Score)
+                        {
+                            case 3:
+                                zodiac_calculator.Typewrite("Your prayer has been answered... (3/3)", 100);  //P.Kenny's method; make the text type out like a type writer
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine(" +300 Karma"); Console.ResetColor();
+                                karma += 300;                      // 300 for now may change for more fun
+                                Console.WriteLine("\n");
+                                break;
+                            case 2:
+                                zodiac_calculator.Typewrite("\nYour prayer has been answered... (2/3)", 100);  
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine(" +200 Karma"); Console.ResetColor();
+                                karma += 200;
+                                Console.WriteLine("\n");
+                                break;
+                            case 1:
+                                zodiac_calculator.Typewrite("\nYour prayer has been answered... (1/3)", 100);  
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine(" +100 Karma"); Console.ResetColor();
+                                karma += 100;
+                                Console.WriteLine("\n");
+                                break;
+                            default:
+                                zodiac_calculator.Typewrite("\nYour prayer is terrible... (0/3)", 100);  
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine(" +0 Karma"); Console.ResetColor();
+                                Console.WriteLine("\n");
+
+                                break;
+                        }
                         break;
+                        
 
                     case 2:
-                        Console.WriteLine("Store Selected");
-                        string[] question = {"1.what was the original name of the Buddha?",
-                              "2.Who were the father and mother of Prince Siddhartha?",
-                              "3.At what age did the Buddha attain enlightenment?",
-                              "4.Who was the Buddha's chief disciple on the right side?",
-                              "5.Who was the first monk in Buddhism?",
-                              "6.What does (The four Noble Truths) refer to?",
-                              "7.Which of the following is NOT one of the FIVE PRECRPTS?",
-                              "8.Where was the Buddha born?",
-                              "9.Who were the first listeners of the Buddha's sermon",
-                              "10.What were the four 'Divine Messengers'(Deva Duta) that Prince Siddhartha saw?"};
-
-                        string[,] choices ={ { "Prince Siddhartha", "Prince Ajatashatru", "Prince Devadatta" },
-                              {"K.Bimbisara and Q.Revadee","Emperor Ashoka and Q. Pimpaa","K.Suddhodana and Q.Sirimahamaya" },
-                              { " 29 Y"," 35 Y"," 40 Y"},
-                              { " Venerable Ananda "," Venerable Sariputta" , " Venerable Moggallana" },
-                              { "Assaji","Venerable Ananda","Venerable Kondanna"},
-                              { "The path to end suffering","Four sublime truths","The law of karma" },
-                              { "Not Chanting","Not killing","Not stealing" },
-                              { "Kapilavastu","Varanasi","Lumbini Garden"},
-                              { "Venerable Ananda","Venerable Sariputta","The Five Ascetics(Pancavaggiya)"},
-                              { "An old man, A sick person, A dead body and ascetic(Monk)",
-                                "A poor man, A rich man, A good person and a bad person",
-                                "A sick person, A healthy person, A beautiful person and an ugly person" } };
-                        
-                        int[] answers = { 0, 2, 1, 1, 2, 1, 0, 2, 2, 0 };
-
-                        List<string> offeringHistory = new List<string>();
-                        int round = 1;
-
-                        string playAgain;
-                        do
-                        {
-                            int score = 0;
-                            Console.WriteLine($"--- offering ---");
-                            Console.WriteLine(" ");
-                            Console.WriteLine($" Welcome to Buddhism Quiz! - Round {round} ");
-                            Console.WriteLine(" ");
-
-                            for (int i = 0; i < question.Length; i++)
-                            {
-                                Console.WriteLine("========================================================");
-                                Console.WriteLine($"Question No.{i + 1}");
-                                Console.WriteLine(question[i]);
-                                Console.WriteLine();
-
-                                for (int j = 0; j < 3; j++)
-                                {
-                                    Console.WriteLine($"{j + 1}. {choices[i, j]}");
-                                }
-
-                                while (true)
-                                {
-                                    Console.Write("Pls...select 1,2,3 : ");
-                                    //string input = Console.ReadLine();
-
-                                    if (int.TryParse(input, out int userChoice) && userChoice >= 1 && userChoice <= 3)
-                                    {
-                                        if (userChoice - 1 == answers[i])
-                                        {
-                                            Console.WriteLine(" Correct!!! ");
-                                            score++;
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine($" Wrong!!! The correct is {choices[i, answers[i]]}");
-                                        }
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Invalid input. Pls select 1-3 only");
-                                    }
-                                }
-
-
-                            }
-                            Console.WriteLine("\n========================================================");
-                            Console.WriteLine($"Total Score is : {score}/{question.Length}");
-
-                            string offering;
-                            if (score >= 8)
-                                offering = "You offer Sangha offering";
-                            else if (score >= 5)
-                                offering = "You offer Money and Flower";
-                            else if (score >= 2)
-                                offering = "You offer Candles";
-                            else
-                                offering = "You offer nothing";
-
-                            Console.WriteLine($"Your reward: {offering}");
-                            Console.WriteLine("========================================================");
-
-                            offeringHistory.Add($"Round {round}: Score {score}/10 → {offering}");
-                            round++;
-
-                            Console.Write("\nDo you want to play again? (Y/N): ");
-                            playAgain = Console.ReadLine().Trim().ToUpper();
-
-                        }
-                        while (playAgain == "Y");
-
-                        Console.WriteLine("\n--- Summary of Offerings ---");
-                        foreach (var entry in offeringHistory)
-                        {
-                            Console.WriteLine(entry);
-                        }
-
-                        Console.WriteLine("\nThank you for playing the Buddhism Quiz!");
-
-
+                        Console.WriteLine("Offering Selected");
                         break;
 
                     case 3:
@@ -451,10 +377,8 @@ Good luck on your journey to redemption!";
                         Thread.Sleep(4000);
                         Console.Clear();
                         break;
+
                     case 4:
-                        Console.WriteLine("Offer selected.");
-                        break;
-                    case 5:
                         Console.WriteLine("Leaving the redemption journey.");
                         //Display final status and ending when user chooses to exit
                         if (karma < 1000)
