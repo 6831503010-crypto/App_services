@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Text;
 using System.Threading;
 
 namespace App_services
@@ -114,7 +115,7 @@ Good luck on your journey to redemption!";
         }
 
         //Validate input for do again in zodiac calculator
-        static bool validateDoAgain(string input)
+        public static bool validateDoAgain(string input)
         {
             string answer = input.ToLower();
             if (answer == "y" || answer == "n")
@@ -295,8 +296,73 @@ Good luck on your journey to redemption!";
                         
 
                     case 2:
-                        Console.WriteLine("Offering Selected");
-                        
+                        Console.WriteLine("\nOffering Selected");
+                        Console.WriteLine("------------------------");
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Typewrite("\nWelcome to Buddha Quiz", 100);
+                        Console.ResetColor();
+                        Console.WriteLine(" ");
+                        offerings quiz = new offerings();
+                        string[,] quizes = quiz.questions;
+                        int score = 0;
+
+
+                        for (int x = 0; x < quizes.GetLength(0); x++)                       
+                        {
+                            // Display question = [0-9, 0] < index position of questions
+
+                            Console.WriteLine(quizes[x, 0]);
+
+                            // Display answers = [0-9, 1] < index position of answers
+                            //Console.WriteLine(quizes[x, 1]);
+
+                            //Get user input and compare with answers
+                            Console.Write("Your answer: ");
+                            string userAnswer = Console.ReadLine().ToUpper();
+
+                            if (userAnswer == quizes[x, 1])
+                            {
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine("Correct!");
+                                score++; 
+                                Console.ResetColor();
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Incorrect! The correct answer is: " + quizes[x, 1]);
+                                Console.ResetColor();
+                            }
+                        }
+
+                        Console.WriteLine("\n========================================================");
+                        Typewrite($"Total Score is : {score}/{quizes.GetLength(0)}", 100);
+
+                        string offering = null;
+
+                        if (score == 10)
+                        { Typewrite("You get Sangha offering", 20); offering = "Sangha offering"; }
+                        else if (score >= 8)
+                        { Typewrite("You get Incense", 20); offering = "Incense"; }
+                        else if (score >= 5)
+                        { Typewrite("You get Flower", 20); offering = "Flower"; }
+                        else if (score >= 2)
+                        { Typewrite("You get Candles", 20); offering = "Candles"; }
+                        else
+                        {Typewrite("You get nothing", 20); }
+
+                        Typewrite($"Your reward: {offering}", 100);
+                        Console.WriteLine("========================================================");
+
+                        // Validate do again
+                        Console.WriteLine("\nDo you want to play again? (Y/N): ");
+                        string playAgain = Console.ReadLine();
+                        validateDoAgain(playAgain);
+
+
+
+
+
 
                         break;
 
