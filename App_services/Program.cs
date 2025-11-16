@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Text;
 using System.Threading;
 
 namespace App_services
@@ -114,7 +115,7 @@ Good luck on your journey to redemption!";
         }
 
         //Validate input for do again in zodiac calculator
-        static bool validateDoAgain(string input)
+        public static bool validateDoAgain(string input)
         {
             string answer = input.ToLower();
             if (answer == "y" || answer == "n")
