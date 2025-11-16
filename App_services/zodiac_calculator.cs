@@ -13,7 +13,7 @@ public class zodiac_calculator
     private string genderInput;
     private string zodiacSign;
 
-    // Constructor
+    // Constructors
     public zodiac_calculator(int date, int month, int year, string gender)
     {
         this.dateInput = date;
@@ -948,7 +948,7 @@ A true boss with a soft core.";
         }
         Console.ResetColor();
     }
-    public void displayHell()
+    public void displayHell(string name)
     {
         Console.ForegroundColor = ConsoleColor.Red;
 
@@ -980,11 +980,10 @@ A true boss with a soft core.";
         Console.WriteLine(); // spacer
 
         // 2) typewriter outro
-        Typewrite("Time to pay for your sins.", 100); // ms per char
-
+        Typewrite("Time to pay for your sins, "+name, 100); // ms per char
         Console.ResetColor();
     }
-    public void displayHeaven()
+    public void displayHeaven(string name)
     {
         Console.ForegroundColor=ConsoleColor.DarkYellow;
         string heavenArt = @"
@@ -1009,7 +1008,7 @@ __    `--.__    `--._  `-._ `-. `. \:/ .' .-' _.-'  _.--'    __.--'    __
         }
 
         Console.WriteLine(); // spacer
-        Typewrite("Peace has returned to your heart — welcome to the realm beyond sorrow, my child.", 100); // ms per char
+        Typewrite("Peace has returned to your heart — welcome to the realm beyond sorrow, "+name, 100); // ms per char
         Console.ResetColor();
     }
 
@@ -1088,7 +1087,7 @@ ______         _                      _   _
 
         switch (item)
         {
-            case "flowers":
+            case "Flowers":
                 Console.ForegroundColor = ConsoleColor.Green;
                 Typewrite(@"You offered flowers to Buddha.
 Their beauty fades, yet their fragrance lingers —
@@ -1099,7 +1098,7 @@ reminding us that all things bloom and pass in peace.", 20);
                     Thread.Sleep(50);
                 }
                 break;
-            case "candles":
+            case "Candles":
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Typewrite(@"You offered light to Buddha.
 In that flame burns away ignorance,
@@ -1111,7 +1110,7 @@ and wisdom dawns — gentle, endless, pure.", 20);
                 }
                 Console.WriteLine(@"");
                 break;
-            case "incense sticks":
+            case "Incense sticks":
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Typewrite(@"You offered incense to Buddha.
 Its smoke rises like prayers unspoken,
@@ -1122,7 +1121,7 @@ carrying your heart toward stillness and release.", 20);
                     Thread.Sleep(50);
                 }
                 break;
-            case "yourself":
+            case "Yourself":
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Typewrite(@"You offered yourself to Buddha.
 In surrender, the illusion of self dissolves —
@@ -1145,7 +1144,7 @@ what remains is peace, boundless and whole.", 20);
     //Ask Inputs
     public string askDate()
     {
-        Console.Write("Enter your birth date in the format of dd/m/yyyy(16.9.1999): ");
+        Console.Write("Enter your birth date in the format of dd/m/yyyy or dd.mm.yyyy(eg. 3.3.1999 or 3/3/1999): ");
         string input = Console.ReadLine();
         return input;
     }
@@ -1178,7 +1177,6 @@ what remains is peace, boundless and whole.", 20);
 
         if (!valid)
         {
-            Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Invalid format. Please use dd/m/yyyy or dd.m.yyyy (e.g. 16/9/1999).");
             Console.ResetColor();
@@ -1189,7 +1187,6 @@ what remains is peace, boundless and whole.", 20);
         int currentYear = DateTime.Now.Year;
         if (tempDate.Year < 1900 || tempDate.Year > currentYear || tempDate > DateTime.Now)
         {
-            Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Sorry,John Connor,we don't accept time travellers here! Please enter a realistic birthdate.");
             Console.ResetColor();
@@ -1217,7 +1214,6 @@ what remains is peace, boundless and whole.", 20);
         }
         else
         {
-            Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Please specify your gender correctly(M/F).");
             Console.ResetColor();

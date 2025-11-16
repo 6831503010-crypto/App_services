@@ -8,7 +8,8 @@ namespace App_services
 {
     public class offerings
     {
-       private string[,] question = new string[10, 2]{{"1.what was the original name of the Buddha?" +
+       private string[,] question = new string[10, 2]{
+           {"1.what was the original name of the Buddha?" +
                 "\nA. Prince Siddhartha \nB.Prince Ajatashatru \nC.Prince Devadatta", "A" } ,
             { "2.Who were the father and mother of Prince Siddhartha?" +
                 "\nA.King Bimbisara and Queen Revadee \nB.Emperor Ashoka and Queen Pimpaa \nC.King Suddhodana and Queen Sirimahamaya", "C"},

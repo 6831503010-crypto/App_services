@@ -157,30 +157,52 @@ Good luck on your journey to redemption!";
         static void Main(string[] args)
         {
             //variables initialization and declaration
-            string ans = "y";
-            bool validChoice = true;
             int choice = 0; //Have to declare and initiate choice here to use it in switch case
-            int karma = -1000;
-            string[] inventory = new string[] {"candles","incense sticks","flowers","yourself" };//pre-set values for testing
-            string name;
-
+            int karma = -1000;//Start with -1000 karma
+            string[] inventory = new string[] {"Yourself"};
+            string name = "";
 
             zodiac_calculator zodiac_Calculator = new zodiac_calculator();
+            
             //Display intro
             displayIntro();
 
             //Ask for user's information
-            Console.Write("Enter your name: ");
-            name = Console.ReadLine();
+            bool validName = true;//For validating name input
+            while (validName)
+            {
+                Console.Write("Enter your name: ");
+                name = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Name cannot be empty. Please try again.");
+                    Console.WriteLine();
+                }
+                else if (int.TryParse(name, out _))// _ means ignore this output,we don't need it, discard
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Sorry, are you a robot?");
+                    Console.WriteLine();
+                }
+                else
+                {
+                    validName = false;
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Welcome, {0}!", name);
+                }
+                Console.ResetColor();
+            }
+            
 
-
-
+            //had to declare false to enter the loop for validating date and gender input
             bool validDate = false;
             bool validGender = false;
 
             //A container for user input,had to be declared outside the loop to be used after
             string input = "";//for asking input date
             string gender = "";//for asking gender
+
             while (!validDate || !validGender)
             {
                 if (!validDate)
@@ -209,6 +231,7 @@ Good luck on your journey to redemption!";
             //Display game story
             displayStory();
 
+            bool validChoice = true;//For validating choice input in the game options
             //The main game loop
             while (karma<1000)
             {
@@ -222,6 +245,7 @@ Good luck on your journey to redemption!";
                 //Display main logo
                 zodiac_Calculator.displayMainLogo();
 
+                //Display menu options
                 Console.WriteLine("1.Pray");
                 Console.WriteLine("2.Get rewards");
                 Console.WriteLine("3.Celestial Readings");    // Changed the menu to new idea
@@ -251,6 +275,7 @@ Good luck on your journey to redemption!";
                 switch (choice)
                 {
                     case 1:
+                        Console.Clear();
                         Console.WriteLine("");
                         Console.WriteLine("------------------------");
                         Typewrite("Pray Selected",20);
@@ -260,10 +285,11 @@ Good luck on your journey to redemption!";
                         Prayer[] Prayers = CreatePrayer();         // now we have a set of prayers 
                         int Score = Pray.PrayerInstruction();      // pick random prayer from Prayers, engage user, clean up/compare/keep score
                                                                    // Prayer doesnt randomize, fix by putting in this file?
+                        
                         switch (Score)
                         {
                             case 3:
-                                zodiac_calculator.Typewrite("Your prayer has been answered... (3/3)", 100);  //P.Kenny's method; make the text type out like a type writer
+                                zodiac_calculator.Typewrite("\nYour prayer has been answered... (3/3)", 100);  //P.Kenny's method; make the text type out like a type writer
                                 Console.ForegroundColor = ConsoleColor.Green;
                                 Console.WriteLine(" +300 Karma"); Console.ResetColor();
                                 karma += 300;                      // 300 for now may change for more fun
@@ -288,19 +314,26 @@ Good luck on your journey to redemption!";
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine(" +0 Karma"); Console.ResetColor();
                                 Console.WriteLine("\n");
-
                                 break;
                         }
-                        break;
-                        
+                        break;                     
 
                     case 2:
-                        Console.WriteLine("Offering Selected");
+                        Console.Clear(); 
+                        Console.WriteLine("");
+                        Console.WriteLine("------------------------");
+                        Typewrite("Get rewards Selected", 20);
+                        Console.WriteLine("------------------------");
                         
-
+                        Offering offering = new Offering();
+                        offering.DisplayQuizzes();
+                        int score = offering.CalculateScore();
+                        inventory = offering.GetRewards(inventory,score);
+                        Console.WriteLine();
                         break;
 
                     case 3:
+                        Console.Clear();
                         //Display welcome message
                         zodiac_Calculator.displayStars();
                         Console.WriteLine("___________________________________________________");
@@ -364,8 +397,8 @@ Good luck on your journey to redemption!";
                                     validDoAgain = true;
                                     if (do_again == "y")
                                     {
-                                        input = null;
-                                        gender = null;
+                                        input = null;//resetting input values if user wants to do it again
+                                        gender = null;//resetting input values if user wants to do it again
                                         zodiac_Calculator.displayReminder(zodiac_Calculator.getZodiacSign());
                                     }
                                 }
@@ -380,77 +413,106 @@ Good luck on your journey to redemption!";
                         break;
 
                     case 4:
+                        Console.Clear();
                         Console.WriteLine();
                         Console.WriteLine("------------------------");
                         Typewrite("Offer Selected",20);
                         Console.WriteLine("------------------------");
-                        int i = 1;//For numerating items
-                        foreach (var item in inventory)
+
+                        if (inventory.Length == 0)
                         {
-                            Console.WriteLine(i + ". " + item);
-                            i++;
+                            Typewrite("Sorry, you have nothing to offer yet.",20);
+                            Console.WriteLine();
+                            Thread.Sleep(2000);
+                            Console.Clear();
+                            break;
                         }
-                        Console.WriteLine("------------------------");
-                        Console.WriteLine();
-
-                        List<string> inventoryList = new List<string>(inventory);
-
-                        //ask for user's choice and validate input loop
-                        bool validItemChoice = true;
-                        int itemChoice = 0;
-                        while (validItemChoice)
+                        else
                         {
-                            Console.Write("Which item would you like to offer? (Enter the item number): ");
-                            if (int.TryParse(Console.ReadLine(), out itemChoice))//out passes a variable by reference so the method can store a value in it
+                            int i = 1;//For numerating items
+                            foreach (var item in inventory)
                             {
-                                Console.WriteLine("Your choice:{0}", itemChoice);  //if TryParse can convert to int do this (return true)
-                                validItemChoice = false;                           // if you Parse and failed = error 
+                                Console.WriteLine(i + ". " + item);
+                                i++;
                             }
-                            else
+                            Console.WriteLine("------------------------");
+                            Console.WriteLine();
+
+                            List<string> inventoryList = new List<string>(inventory);
+
+                            //ask for user's choice and validate input loop
+                            bool validItemChoice = true;
+                            int itemChoice = 0;
+                            while (validItemChoice)
                             {
-                                Console.ForegroundColor = ConsoleColor.Red;   // if can't do this (return false instead of error)
-                                Console.WriteLine("Invalid input. Please enter a number.");
-                                Console.WriteLine();
-                                Console.ResetColor();
+                                Console.Write("Which item would you like to offer? (Enter the item number): ");
+                                string offerItem = Console.ReadLine();
+
+                                // Step 1: Validate integer
+                                if (int.TryParse(offerItem, out itemChoice))
+                                {
+                                    // Step 2: Validate that the number is within the inventory range
+                                    if (itemChoice >= 1 && itemChoice <= inventory.Length)
+                                    {
+                                        Console.WriteLine("Your choice: {0}", itemChoice);
+                                        validItemChoice = false; // VALID → exit loop
+                                    }
+                                    else
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.Red;
+                                        Console.WriteLine("Please offer what you have.");
+                                        Console.WriteLine();
+                                        Console.ResetColor();
+                                    }
+                                }
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("Invalid input. Please enter a number.");
+                                    Console.WriteLine();
+                                    Console.ResetColor();
+                                }
                             }
+
+
+                            string itemToOffer = inventoryList[itemChoice - 1];//-1 to match index
+                            inventoryList.Remove(itemToOffer);//remove item from inventory
+                            zodiac_Calculator.displayOffering(itemToOffer);
+
+                            //update score using switch
+                            switch (itemToOffer)
+                            {
+                                case "Flowers":
+                                    karma = karma + 75;
+                                    break;
+                                case "Candle":
+                                    karma = karma + 50;
+                                    break;
+                                case "Incense sticks":
+                                    karma = karma + 25;
+                                    break;
+                                case "Yourself":
+                                    karma = karma + 1000;
+                                    break;
+                                default:
+                                    Typewrite("Cannot find the item.", 20);
+                                    break;
+                            }
+
+                            inventory = inventoryList.ToArray();//convert back to array
+                            break;
                         }
-
-                        string itemToOffer = inventoryList[itemChoice - 1];//-1 to match index
-                        inventoryList.Remove(itemToOffer);//remove item from inventory
-                        zodiac_Calculator.displayOffering(itemToOffer);
-
-                        //update score using switch
-                        switch (itemToOffer)
-                        {
-                            case "flowers":
-                                karma = karma+75;
-                                break;
-                            case "candles":
-                                karma = karma+50;
-                                break;
-                            case "incense sticks":
-                                karma = karma+25;
-                                break;
-                            case "yourself":
-                                karma = karma + 1000;
-                                break;
-                            default:
-                                Typewrite("Cannot find the item.", 20);
-                                break;
-                        }
-
-                        inventory = inventoryList.ToArray();//convert back to array
-                        break;
                     case 5:
+                        Console.Clear();
                         Console.WriteLine("Leaving the redemption journey.");
                         //Display final status and ending when user chooses to exit
                         if (karma < 1000)
                         {
-                            zodiac_Calculator.displayHell();
+                            zodiac_Calculator.displayHell(name);
                         }
                         else
                         {
-                            zodiac_Calculator.displayHeaven();
+                            zodiac_Calculator.displayHeaven(name);
                         }
                         return;
                     default:
@@ -465,11 +527,13 @@ Good luck on your journey to redemption!";
             //Display final status and ending
             if (karma < 1000)
             {
-                zodiac_Calculator.displayHell();
+                Console.Clear();
+                zodiac_Calculator.displayHell(name);
             }
             else
             {
-                zodiac_Calculator.displayHeaven();
+                Console.Clear();
+                zodiac_Calculator.displayHeaven(name);
             }
         }
     }
