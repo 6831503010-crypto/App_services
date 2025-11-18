@@ -160,7 +160,8 @@ Good luck on your journey to redemption!";
             //variables initialization and declaration
             int choice = 0; //Have to declare and initiate choice here to use it in switch case
             int karma = -1000;//Start with -1000 karma
-            string[] inventory = new string[] {"Yourself"};
+            string[] inventory = new string[] {"Yourself","Flowers","Candle","Incense sticks"};
+           
             string name = "";
 
             zodiac_calculator zodiac_Calculator = new zodiac_calculator();

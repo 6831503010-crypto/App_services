@@ -1098,7 +1098,7 @@ reminding us that all things bloom and pass in peace.", 20);
                     Thread.Sleep(50);
                 }
                 break;
-            case "Candles":
+            case "Candle":
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Typewrite(@"You offered light to Buddha.
 In that flame burns away ignorance,
