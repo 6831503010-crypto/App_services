@@ -297,7 +297,7 @@ class Offering
         if (score <= 1)
         {
             item = "Incense sticks";
-            Typewrite("You received Incense as a reward.",50);
+            Typewrite("You received Incense sticks as a reward.",50);
         }
         else if (score <= 3)
         {

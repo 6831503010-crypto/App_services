@@ -1185,14 +1185,20 @@ what remains is peace, boundless and whole.", 20);
 
         //Logical validation
         int currentYear = DateTime.Now.Year;
-        if (tempDate.Year < 1900 || tempDate.Year > currentYear || tempDate > DateTime.Now)
+        if (tempDate.Year < 1925 || tempDate.Year > currentYear || tempDate > DateTime.Now)//checking for future or past years with 100 years gap
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Sorry,John Connor,we don't accept time travellers here! Please enter a realistic birthdate.");
             Console.ResetColor();
             return false;
         }
-
+        else if (currentYear-tempDate.Year<8)//checking for minimum age
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Sorry,You must be older than 8 to play this. Please enter a realistic birthdate.");
+            Console.ResetColor();
+            return false;
+        }
 
         //Passed all checks
         Console.ForegroundColor = ConsoleColor.Green;

@@ -509,25 +509,31 @@ Good luck on your journey to redemption!";
                             inventoryList.Remove(itemToOffer);//remove item from inventory
                             zodiac_Calculator.displayOffering(itemToOffer);
 
+                            Console.ForegroundColor = ConsoleColor.Green;
                             //update score using switch
                             switch (itemToOffer)
                             {
-                                case "Flowers":
-                                    karma = karma + 75;
-                                    break;
-                                case "Candle":
-                                    karma = karma + 50;
-                                    break;
                                 case "Incense sticks":
+                                    Console.WriteLine(" +25 karma");
                                     karma = karma + 25;
                                     break;
+                                case "Flowers":
+                                    Console.WriteLine(" +125 karma");
+                                    karma = karma + 125;
+                                    break;
+                                case "Candle":
+                                    Console.WriteLine(" +250 karma");
+                                    karma = karma + 250;
+                                    break;
                                 case "Yourself":
+                                    Console.WriteLine(" +1000 karma");
                                     karma = karma + 1000;
                                     break;
                                 default:
                                     Typewrite("Cannot find the item.", 20);
                                     break;
                             }
+                            Console.ResetColor();
 
                             inventory = inventoryList.ToArray();//convert back to array
                             break;
