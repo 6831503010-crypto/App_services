@@ -6,6 +6,17 @@ namespace App_services
 {
     internal class Program
     {
+        //Validate name input to be characters and spaces only
+        static bool ContainsOnlyLettersAndSpaces(string input)
+        {
+            foreach (char c in input)
+            {
+                if (!char.IsLetter(c) && c != ' ')
+                    return false;
+            }
+            return true;
+        }
+
         //make text look like it's being typed
         static void Typewrite(string text, int delayMs)
         {
@@ -175,27 +186,37 @@ Good luck on your journey to redemption!";
             {
                 Console.Write("Enter your name: ");
                 name = Console.ReadLine();
+
+                // 1. Empty or whitespace
                 if (string.IsNullOrWhiteSpace(name))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Name cannot be empty. Please try again.");
-                    Console.WriteLine();
+                    Console.WriteLine("Name cannot be empty. Please enter your name with words and spaces only.\n");
                 }
-                else if (int.TryParse(name, out _))// _ means ignore this output,we don't need it, discard
+                // 2. All numbers
+                else if (int.TryParse(name, out _))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Sorry, are you a robot?");
-                    Console.WriteLine();
+                    Console.WriteLine("Sorry, are you a robot?Please enter your name with words and spaces only.\n");
                 }
+                // 3. Special characters or invalid symbols
+                else if (!ContainsOnlyLettersAndSpaces(name))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Name cannot contain numbers or special characters.Please enter your name with words and spaces only\n");
+                }
+                // 4. Valid
                 else
                 {
                     validName = false;
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Welcome, {0}!", name);
+                    Console.WriteLine($"Welcome, {name.Trim()}!");//To remove white spaces if there is any
                 }
+
                 Console.ResetColor();
             }
-            
+
+
 
             //had to declare false to enter the loop for validating date and gender input
             bool validDate = false;
@@ -259,10 +280,17 @@ Good luck on your journey to redemption!";
                 while (validChoice)
                 {
                     Console.Write("What do you want to do?: ");
-                    if (int.TryParse(Console.ReadLine(), out choice))//out passes a variable by reference so the method can store a value in it
+                    if (int.TryParse(Console.ReadLine(), out choice) && choice<=5)//out passes a variable by reference so the method can store a value in it
                     {
                         Console.WriteLine("Your choice:{0}", choice);  //if TryParse can convert to int do this (return true)
                         validChoice = false;                           // if you Parse and failed = error 
+                    }
+                    else if (choice>5)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Please choose from the available services.");
+                        Console.WriteLine();
+                        Console.ResetColor();
                     }
                     else
                     {

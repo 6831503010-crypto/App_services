@@ -197,7 +197,9 @@ class Offering
             if (input.Length == 1 && "ABC".Contains(input))//Making sure input is only one character and is A, B, or C
                 return input[0];
 
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.Write("Invalid input. Enter A, B, or C: ");
+            Console.ResetColor();
         }
     }
 
