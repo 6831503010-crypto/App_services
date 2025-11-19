@@ -44,7 +44,7 @@ namespace App_services
             p3.Line3 = "Sukkee Autthanung Pariha Runtuh";
 
             Prayer[] allprayer = { p1, p2, p3 };
-            return allprayer;
+            return allprayer;   // Set the return value for this method as the array
 
         }
         public static int PrayerInstruction()

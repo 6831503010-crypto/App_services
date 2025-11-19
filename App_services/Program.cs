@@ -145,7 +145,7 @@ Good luck on your journey to redemption!";
         }
 
         // Creating a set of prayers
-        public static Prayer[] CreatePrayer()
+        /*public static Prayer[] CreatePrayer()
         {
             Prayer p1 = new Prayer();
             p1.Line1 = "Namo Tatsa Pakawa To Araha To Summa Sumbhudda Sa";
@@ -165,7 +165,7 @@ Good luck on your journey to redemption!";
             Prayer[] allprayer = { p1, p2, p3 };
             return allprayer;
 
-        }
+        }*/
         static void Main(string[] args)
         {
             //variables initialization and declaration
@@ -312,7 +312,7 @@ Good luck on your journey to redemption!";
                         Console.WriteLine("------------------------");
                         zodiac_calculator.displayBuddah();
                         Console.WriteLine("");
-                        Prayer[] Prayers = CreatePrayer();         // now we have a set of prayers 
+                        //Prayer[] Prayers = CreatePrayer();         // now we have a set of prayers 
                         int Score = Pray.PrayerInstruction();      // pick random prayer from Prayers, engage user, clean up/compare/keep score
                                                                    // Prayer doesnt randomize, fix by putting in this file?
                         
