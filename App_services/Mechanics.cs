@@ -135,15 +135,6 @@ namespace App_services
             return score;
         }
 
-        public static void Typewrite2(string text, int delayMs)
-        {
-            foreach (char c in text)
-            {
-                Console.Write(c);
-                Thread.Sleep(delayMs);
-            }
-        }
-
     }
 }
 // Namo Tatsa Pakawa To Araha To Summa Sumbhudda Sa

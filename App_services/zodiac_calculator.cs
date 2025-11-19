@@ -14,13 +14,6 @@ public class zodiac_calculator
     private string zodiacSign;
 
     // Constructors
-    public zodiac_calculator(int date, int month, int year, string gender)
-    {
-        this.dateInput = date;
-        this.monthInput = month;
-        this.yearInput = year;
-        this.genderInput = gender;
-    }
 
     public zodiac_calculator()
     {
@@ -142,11 +135,6 @@ public class zodiac_calculator
     public int getMonth()
     {
         return this.monthInput;
-    }
-
-    public int getYear()
-    {
-        return this.yearInput;
     }
 
     public string getGender()
@@ -760,117 +748,6 @@ A true boss with a soft core.";
         Console.ResetColor();
         Typewrite("Let's see what the stars tell about you...",50);
     }
-    public void displayWelcomeMessage()
-    {
-        Console.ForegroundColor = ConsoleColor.Green;
-
-        //// Each letter is 7 lines tall. Only Z + spaces are used.
-        //string[] Z = {
-        //    "ZZZZZZZZ",
-        //    "      ZZ",
-        //    "     ZZ ",
-        //    "   ZZ   ",
-        //    "  ZZ    ",
-        //    " ZZ     ",
-        //    "ZZZZZZZZ"
-        //};
-        //string[] O = {
-        //    " ZZZZZZ ",
-        //    "ZZ    ZZ",
-        //    "ZZ    ZZ",
-        //    "ZZ    ZZ",
-        //    "ZZ    ZZ",
-        //    "ZZ    ZZ",
-        //    " ZZZZZZ "
-        //};
-        //string[] D = {
-        //    "ZZZZZZZ ",
-        //    "ZZ     Z",
-        //    "ZZ     Z",
-        //    "ZZ     Z",
-        //    "ZZ     Z",
-        //    "ZZ     Z",
-        //    "ZZZZZZZ "
-        //};
-        //string[] I = {
-        //    "ZZZZZZZZ",
-        //    "   ZZ   ",
-        //    "   ZZ   ",
-        //    "   ZZ   ",
-        //    "   ZZ   ",
-        //    "   ZZ   ",
-        //    "ZZZZZZZZ"
-        //};
-        //string[] A = {
-        //    "  ZZZZ  ",
-        //    " ZZ  ZZ ",
-        //    " ZZ  ZZ ",
-        //    " ZZZZZZ ",
-        //    " ZZ  ZZ ",
-        //    " ZZ  ZZ ",
-        //    " ZZ  ZZ "
-        //};
-        //string[] C = {
-        //    " ZZZZZZ ",
-        //    "ZZ      ",
-        //    "ZZ      ",
-        //    "ZZ      ",
-        //    "ZZ      ",
-        //    "ZZ      ",
-        //    " ZZZZZZ "
-        //};
-        //string[] S = {
-        //    " ZZZZZZ ",
-        //    "ZZ      ",
-        //    "ZZ      ",
-        //    " ZZZZZZ ",
-        //    "      ZZ",
-        //    "      ZZ",
-        //    " ZZZZZZ "
-        //};
-        //string[] EX = {
-        //    "   ZZ   ",
-        //    "   ZZ   ",
-        //    "   ZZ   ",
-        //    "   ZZ   ",
-        //    "   ZZ   ",
-        //    "        ",
-        //    "   ZZ   "
-        //};
-
-        //int delayMs = 300; // animation speed per line
-
-        //for (int i = 0; i < 7; i++)
-        //{
-        //    string line =
-        //        Z[i] + "  " +
-        //        O[i] + "  " +
-        //        D[i] + "  " +
-        //        I[i] + "  " +
-        //        A[i] + "  " +
-        //        C[i] + "  " +
-        //        S[i] + "  " +
-        //        EX[i] + " " + EX[i] + " " + EX[i]; // !!! made of Z
-        //    Console.WriteLine(line);
-        //    Thread.Sleep(delayMs);
-        //}
-        Console.Write(@"
-              _ _            
-             | (_)           
- _______   __| |_  __ _  ___ 
-|_  / _ \ / _` | |/ _` |/ __|
- / / (_) | (_| | | (_| | (__ 
-/___\___/ \__,_|_|\__,_|\___|");
-        Console.Write(@"
-          _            _       _             
-          | |          | |     | |            
-  ___ __ _| | ___ _   _| | __ _| |_ ___  _ __ 
- / __/ _` | |/ __| | | | |/ _` | __/ _ \| '__|
-| (_| (_| | | (__| |_| | | (_| | || (_) | |   
- \___\__,_|_|\___|\__,_|_|\__,_|\__\___/|_|   
-                                              ");
-        Console.ResetColor();
-    }
     public void displayGoodbyeMessage(string name)
     {
         Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -1170,8 +1047,8 @@ what remains is peace, boundless and whole.", 20);
         bool valid = DateTime.TryParseExact(
             input,
             formats,
-            CultureInfo.InvariantCulture,
-            DateTimeStyles.None,
+            CultureInfo.InvariantCulture,//to stop using local preferences of date formats
+            DateTimeStyles.None,//no extra styles
             out tempDate
         );
 
